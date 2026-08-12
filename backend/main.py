@@ -7,11 +7,11 @@ from pydantic import BaseModel
 import pandas as pd
 import os
 
-from engine import get_routes, CHOKEPOINTS
-from weather import get_weather_risk
-from conflict import get_conflict_risk, CHOKEPOINT_RISK
-from clustering import build_cluster_model, CLUSTER_INFO
-from metrics import score_all_routes
+from .engine import get_routes, CHOKEPOINTS
+from .weather import get_weather_risk
+from .conflict import get_conflict_risk, CHOKEPOINT_RISK
+from .clustering import build_cluster_model, CLUSTER_INFO
+from .metrics import score_all_routes
 
 app = FastAPI(title="SeaRoute Intelligence API", version="2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"],

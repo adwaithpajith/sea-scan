@@ -61,21 +61,21 @@ REGIONS = {
 }
 
 BASE_SCORES = {
-    "Bab el-Mandeb"       : 8.5,
-    "Suez Canal"          : 6.0,
-    "Strait of Hormuz"    : 6.5,
-    "Strait of Malacca"   : 2.5,
-    "Luzon Strait"        : 3.5,
-    "Strait of Gibraltar" : 1.0,
+    "Bab el-Mandeb"       : 7.5,
+    "Suez Canal"          : 3.5,
+    "Strait of Hormuz"    : 8.0,
+    "Strait of Malacca"   : 3.0,
+    "Luzon Strait"        : 4.0,
+    "Strait of Gibraltar" : 1.5,
     "Dover Strait"        : 1.0,
-    "Bosphorus Strait"    : 2.5,
-    "Panama Canal"        : 1.5,
+    "Bosphorus Strait"    : 5.5,
+    "Panama Canal"        : 2.0,
     "Cape of Good Hope"   : 1.0,
     "Lombok Strait"       : 2.0,
     "Tsugaru Strait"      : 1.5,
     "Cape Horn"           : 1.0,
     "Strait of Magellan"  : 1.0,
-    "Danish Straits"      : 2.0,
+    "Danish Straits"      : 3.0,
 }
 
 STATIC_REASONS = {

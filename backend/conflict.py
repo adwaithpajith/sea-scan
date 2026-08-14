@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-08-13 07:17 UTC
+# Auto-updated by GitHub Actions on 2026-08-14 07:15 UTC
 # Sources: MARAD MSCI · UKMTO · gCaptain RSS
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (8.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
-    "Suez Canal": (6.0, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (6.5, "No specific advisory mentions for Strait of Hormuz in current sources."),
-    "Strait of Malacca": (2.5, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (3.5, "No specific advisory mentions for Luzon Strait in current sources."),
-    "Strait of Gibraltar": (1.0, "Stable, NATO presence. No current advisories."),
+    "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (8.0, "No specific advisory mentions for Strait of Hormuz in current sources."),
+    "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
+    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (2.5, "No specific advisory mentions for Bosphorus Strait in current sources."),
-    "Panama Canal": (1.5, "No specific advisory mentions for Panama Canal in current sources."),
+    "Bosphorus Strait": (5.5, "No specific advisory mentions for Bosphorus Strait in current sources."),
+    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (2.0, "No specific advisory mentions for Danish Straits in current sources."),
+    "Danish Straits": (3.0, "No specific advisory mentions for Danish Straits in current sources."),
 }
 
 

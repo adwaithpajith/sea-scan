@@ -1,4 +1,3 @@
-
 def compute_voyage_metrics(distance_nm):
     days         = distance_nm / (24*24)
     fuel_tonnes  = 180 * days
@@ -41,6 +40,23 @@ def compute_efficiency_scores(routes):
                                  "Moderate"         if e<7.5 else "Inefficient")
     return routes
 
+def tag_extremes(routes):
+    """
+    Tag the lowest-risk route(s) and the most-efficient route(s) independently.
+    This is intentionally NOT a single "recommended" route: Sea Scan's MCDM
+    philosophy keeps Risk and Efficiency as separate, co-equal objectives, so
+    both extremes are surfaced side by side and the user still makes the call.
+    Ties are all tagged true rather than arbitrarily picking one.
+    """
+    if not routes:
+        return routes
+    min_risk = min(r["risk_score"] for r in routes)
+    min_eff  = min(r["efficiency_score"] for r in routes)
+    for r in routes:
+        r["lowest_risk"]    = (r["risk_score"] == min_risk)
+        r["most_efficient"] = (r["efficiency_score"] == min_eff)
+    return routes
+
 def score_all_routes(routes, weather_results, conflict_results):
     enriched = []
     for i, route in enumerate(routes):
@@ -59,4 +75,5 @@ def score_all_routes(routes, weather_results, conflict_results):
             "efficiency_score" : 0,
             "efficiency_label" : "",
         })
-    return compute_efficiency_scores(enriched)
+    enriched = compute_efficiency_scores(enriched)
+    return tag_extremes(enriched)

@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -86,10 +85,6 @@ def compute_routes(req: RouteRequest):
     weather  = [get_weather_risk(r["geometry"])  for r in routes]
     conflict = [get_conflict_risk(r["passages"]) for r in routes]
     scored   = score_all_routes(routes, weather, conflict)
-
-    best = min(range(len(scored)), key=lambda i: scored[i]["risk_score"])
-    for i,r in enumerate(scored):
-        r["recommended"] = (i==best)
 
     return {"source":req.source,"destination":req.destination,"routes":scored}
 

@@ -101,19 +101,36 @@ def fetch_marad():
         if r.status_code != 200:
             print(f"  MARAD returned {r.status_code}")
             return ""
-        soup = BeautifulSoup(r.text, "html.parser")
+        # Only look at the "Active Advisories" section of the page — cut the
+        # HTML off before "Cancelled Advisories" so expired advisories don't
+        # get scored as current risk.
+        html = r.text
+        cutoff = html.find("Cancelled Advisories")
+        active_html = html[:cutoff] if cutoff != -1 else html
+
+        soup = BeautifulSoup(active_html, "html.parser")
         links = []
         for a in soup.find_all("a", href=True):
             href = a["href"]
-            if "msci" in href.lower() and any(
-                kw in href.lower() for kw in ["advisory","alert","notice"]
-            ):
-                if not href.startswith("http"):
-                    href = "https://www.maritime.dot.gov" + href
-                if href not in links:
-                    links.append(href)
-        print(f"  Found {len(links)} MARAD advisory links")
-        for link in links[:10]:
+            # Real MARAD advisory URLs look like:
+            #   /msci/2026-006-red-sea-bab-el-mandeb-strait-...-houthi-attacks
+            # i.e. a 4-digit year + 3-digit advisory number, NOT the literal
+            # word "advisory"/"alert"/"notice" in the URL — matching on those
+            # words (the old approach) matches zero real advisory links.
+            if re.search(r"/msci/\d{4}-\d{3}-", href):
+                full = href if href.startswith("http") else "https://www.maritime.dot.gov" + href
+                title = a.get_text(strip=True)
+                if full not in [l[0] for l in links]:
+                    links.append((full, title))
+        print(f"  Found {len(links)} active MARAD advisory links")
+
+        # Advisory titles alone are high-signal (e.g. "Red Sea, Bab el Mandeb
+        # Strait ... Houthi Attacks on Commercial Vessels"), so fold them in
+        # even before the subpage fetch below.
+        for _, title in links:
+            text += " " + title.lower()
+
+        for link, _ in links[:15]:
             try:
                 r2 = requests.get(link, headers=HEADERS, timeout=10)
                 soup2 = BeautifulSoup(r2.text, "html.parser")
@@ -128,6 +145,16 @@ def fetch_marad():
 def fetch_ukmto():
     print("Trying UKMTO...")
     text = ""
+    # KNOWN LIMITATION: ukmto.org's product/incident listing pages are
+    # client-side rendered (React/Vue-style SPA). A plain requests.get() gets
+    # back an empty shell ("No products to display" / "0 reports") regardless
+    # of what data actually exists behind it — this is a JS-rendering
+    # limitation, not a URL or selector bug. Real incident content exists on
+    # this domain (e.g. JMIC Advisory Note PDFs), but reliably discovering and
+    # reading it needs a headless browser (e.g. Playwright) rather than
+    # requests+BeautifulSoup. Left in place as a harmless best-effort call —
+    # if UKMTO ever serves this page server-rendered, it starts working with
+    # no further changes needed.
     try:
         r = requests.get(
             "https://www.ukmto.org/indian-ocean/recent-incidents",
@@ -136,7 +163,7 @@ def fetch_ukmto():
         if r.status_code == 200:
             soup = BeautifulSoup(r.text, "html.parser")
             text = soup.get_text(separator=" ").lower()
-            print(f"  UKMTO: {len(text)} chars fetched")
+            print(f"  UKMTO: {len(text)} chars fetched (likely near-empty — see known limitation above)")
         else:
             print(f"  UKMTO returned {r.status_code}")
     except Exception as e:

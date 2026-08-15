@@ -245,9 +245,21 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .route-card:hover{border-color:var(--border2);background:#141414;transform:translateX(2px)}
 .route-card.active{background:#131313;border-color:var(--accent-dim);box-shadow:inset 0 0 0 1px rgba(192,192,192,.1)}
 
-.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .card-name{font-size:11px;font-weight:400;letter-spacing:.8px;text-transform:uppercase}
 .risk-chip{font-size:9px;font-weight:600;color:#fff;padding:2px 8px;border-radius:2px;letter-spacing:.5px}
+
+/* Extreme tags — neutral, informational only. Never a single "recommended" badge:
+   Risk and Efficiency stay two independent objectives per Sea Scan's MCDM design. */
+.badge-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.extreme-tag{
+  font-size:8px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+  padding:3px 7px;border-radius:2px;display:inline-flex;align-items:center;gap:4px;
+  background:transparent;color:var(--accent);border:1px solid var(--border2);
+}
+.extreme-tag i{font-size:8px}
+.extreme-tag.risk-tag{color:var(--green);border-color:rgba(61,220,132,0.35)}
+.extreme-tag.eff-tag{color:#7ec8c8;border-color:rgba(126,200,200,0.35)}
 
 .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:11px}
 .metric{
@@ -796,11 +808,16 @@ function renderRoutes(data){
     card.className="route-card";
     card.id=`card-${i}`;
     card.style.borderLeftColor=lc;
+    const badges=[
+      r.lowest_risk   ?`<span class="extreme-tag risk-tag"><i class="fa-solid fa-shield-halved"></i>Lowest Risk</span>`:"",
+      r.most_efficient?`<span class="extreme-tag eff-tag"><i class="fa-solid fa-leaf"></i>Most Efficient</span>`:"",
+    ].join("");
     card.innerHTML=`
       <div class="card-header">
         <span class="card-name" style="color:${lc}">${r.name}</span>
         <span class="risk-chip" style="background:${rbc}">${r.risk_score}/10 ${r.risk_label}</span>
       </div>
+      ${badges?`<div class="badge-row">${badges}</div>`:""}
       <div class="metrics-grid">
         <div class="metric"><div class="ml">Distance</div><div class="mv">${r.distance.toLocaleString()} NM</div></div>
         <div class="metric"><div class="ml">Duration</div><div class="mv">${r.metrics.duration_days}d</div></div>

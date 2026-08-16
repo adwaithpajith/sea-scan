@@ -1,5 +1,5 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-08-15 06:26 UTC
+# Auto-updated by GitHub Actions on 2026-08-16 06:28 UTC
 # Sources: MARAD MSCI · UKMTO · gCaptain RSS
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY

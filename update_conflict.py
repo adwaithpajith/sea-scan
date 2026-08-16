@@ -6,7 +6,8 @@ Sources: MARAD MSCI (primary) -> UKMTO (fallback) -> gCaptain RSS (fallback)
 """
 import requests
 from bs4 import BeautifulSoup
-import re, os, json
+import re, os, json, time
+import xml.etree.ElementTree as ET
 from datetime import datetime
 
 REGIONS = {
@@ -88,18 +89,30 @@ STATIC_REASONS = {
     "Strait of Magellan"  : "Stable, Chile-controlled.",
 }
 
-HEADERS = {"User-Agent": "SeaRoute-Intelligence-Platform/2.0 (academic research)"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
 def fetch_marad():
     print("Trying MARAD...")
     text = ""
     try:
-        r = requests.get(
-            "https://www.maritime.dot.gov/msci-advisories",
-            headers=HEADERS, timeout=15
-        )
+        r = None
+        for attempt in range(2):
+            r = requests.get(
+                "https://www.maritime.dot.gov/msci-advisories",
+                headers=HEADERS, timeout=15
+            )
+            if r.status_code == 200:
+                break
+            print(f"  MARAD attempt {attempt+1} returned {r.status_code}")
+            if attempt == 0:
+                time.sleep(3)
         if r.status_code != 200:
-            print(f"  MARAD returned {r.status_code}")
+            print(f"  MARAD failed after retry: {r.status_code}")
             return ""
         # Only look at the "Active Advisories" section of the page — cut the
         # HTML off before "Cancelled Advisories" so expired advisories don't
@@ -176,13 +189,18 @@ def fetch_gcaptain():
     try:
         r = requests.get("https://gcaptain.com/feed/", headers=HEADERS, timeout=15)
         if r.status_code == 200:
-            soup = BeautifulSoup(r.text, "xml")
-            items = soup.find_all("item")[:20]
+            # Use the standard-library XML parser rather than
+            # BeautifulSoup(..., "xml"), which silently requires the
+            # optional `lxml` package that this workflow does not install.
+            root = ET.fromstring(r.content)
+            items = root.findall(".//item")[:20]
             for item in items:
-                title = item.find("title")
-                desc  = item.find("description")
-                if title: text += " " + title.get_text().lower()
-                if desc:  text += " " + desc.get_text().lower()
+                title_el = item.find("title")
+                desc_el  = item.find("description")
+                if title_el is not None and title_el.text:
+                    text += " " + title_el.text.lower()
+                if desc_el is not None and desc_el.text:
+                    text += " " + desc_el.text.lower()
             print(f"  gCaptain: {len(text)} chars from {len(items)} articles")
         else:
             print(f"  gCaptain returned {r.status_code}")

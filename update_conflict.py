@@ -96,8 +96,8 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-def fetch_marad():
-    print("Trying MARAD...")
+def fetch_marad_direct():
+    print("Trying MARAD (direct)...")
     text = ""
     headlines = []
     try:
@@ -109,11 +109,11 @@ def fetch_marad():
             )
             if r.status_code == 200:
                 break
-            print(f"  MARAD attempt {attempt+1} returned {r.status_code}")
+            print(f"  MARAD direct attempt {attempt+1} returned {r.status_code}")
             if attempt == 0:
                 time.sleep(3)
         if r.status_code != 200:
-            print(f"  MARAD failed after retry: {r.status_code}")
+            print(f"  MARAD direct failed after retry: {r.status_code}")
             return "", []
         # Only look at the "Active Advisories" section of the page — cut the
         # HTML off before "Cancelled Advisories" so expired advisories don't
@@ -140,11 +140,6 @@ def fetch_marad():
         for _, title in links:
             print(f"    - {title}")
 
-        # Advisory titles alone are high-signal (e.g. "Red Sea, Bab el Mandeb
-        # Strait ... Houthi Attacks on Commercial Vessels"), so fold them in
-        # even before the subpage fetch below, and keep them separately so
-        # the actual headline can be quoted in the UI later, not just a
-        # keyword-hit count.
         for _, title in links:
             text += " " + title.lower()
             if title:
@@ -157,10 +152,51 @@ def fetch_marad():
                 text += " " + soup2.get_text(separator=" ").lower()
             except Exception as e:
                 print(f"  Skip {link[:50]}: {e}")
-        print(f"  MARAD: {len(text)} chars fetched")
+        print(f"  MARAD direct: {len(text)} chars fetched")
     except Exception as e:
-        print(f"  MARAD failed: {e}")
+        print(f"  MARAD direct failed: {e}")
     return text, headlines
+
+def fetch_marad_via_render():
+    print("Trying MARAD via Render relay...")
+    render_url = os.environ.get("RENDER_APP_URL", "").rstrip("/")
+    render_secret = os.environ.get("RENDER_INTERNAL_SECRET", "")
+    if not render_url or not render_secret:
+        print("  RENDER_APP_URL / RENDER_INTERNAL_SECRET not set — skipping relay")
+        return "", []
+    try:
+        r = requests.get(
+            f"{render_url}/internal/fetch-marad",
+            headers={"X-Internal-Secret": render_secret},
+            timeout=30,
+        )
+        if r.status_code != 200:
+            print(f"  Render relay returned {r.status_code}")
+            return "", []
+        data = r.json()
+        if not data.get("ok"):
+            print(f"  Render relay reported failure: {data.get('error', data.get('status'))}")
+            return "", []
+        text = data.get("text", "")
+        headlines = data.get("headlines", [])
+        print(f"  MARAD via Render: {len(text)} chars, {len(headlines)} headlines")
+        for h in headlines:
+            print(f"    - {h}")
+        return text, headlines
+    except Exception as e:
+        print(f"  Render relay failed: {e}")
+        return "", []
+
+def fetch_marad():
+    # GitHub Actions' runner IPs are blocked (403) by maritime.dot.gov's WAF.
+    # Try the direct fetch first (works if that ever changes), and fall back
+    # to relaying the request through the Render-hosted backend, whose IPs
+    # aren't on the same blocklist.
+    text, headlines = fetch_marad_direct()
+    if text.strip():
+        return text, headlines
+    print("  MARAD direct fetch was empty — falling back to Render relay")
+    return fetch_marad_via_render()
 
 def fetch_ukmto():
     print("Trying UKMTO...")

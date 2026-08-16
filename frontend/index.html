@@ -837,7 +837,7 @@ function renderRoutes(data){
         <span>Conflict ${r.conflict.conflict_risk_score}/10 ${r.conflict.risk_label}</span>
       </div>
       ${r.conflict.key_concern&&r.conflict.key_concern!=="No major chokepoints on this route"
-        ?`<div class="concern">${r.conflict.key_concern.substring(0,140)}...</div>`:""}
+        ?`<div class="concern">${r.conflict.key_concern.length>220?r.conflict.key_concern.substring(0,220)+"...":r.conflict.key_concern}</div>`:""}
       <div class="passages">${r.passages.map(p=>`<span class="passage-tag">${p}</span>`).join("")}</div>
       <div class="hint-text"><i class="fa-regular fa-hand-pointer"></i>&nbsp;Click route line for ETA weather breakdown</div>`;
     card.addEventListener("click",()=>selectCard(i));

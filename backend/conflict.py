@@ -1,5 +1,5 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-08-16 17:19 UTC
+# Auto-updated by GitHub Actions on 2026-08-16 17:40 UTC
 # Sources: MARAD MSCI · UKMTO · gCaptain RSS
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
@@ -7,13 +7,13 @@
 CHOKEPOINT_RISK = {
     "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Hormuz Ship Attacks Mount As US Vows To Cripple Iran Economy\" — scan 16 Aug 2026 17:19 UTC: 2 critical + 1 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Hormuz Ship Attacks Mount As US Vows To Cripple Iran Economy\" — scan 16 Aug 2026 17:40 UTC: 2 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
     "Bosphorus Strait": (5.5, "No specific advisory mentions for Bosphorus Strait in current sources."),
-    "Panama Canal": (2.8, "\"Supertanker Pays Record $4.6 Million to Skip Panama Canal Line\" — scan 16 Aug 2026 17:19 UTC: 1 critical + 0 elevated keyword matches."),
+    "Panama Canal": (2.8, "\"Supertanker Pays Record $4.6 Million to Skip Panama Canal Line\" — scan 16 Aug 2026 17:40 UTC: 1 critical + 0 elevated keyword matches."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),

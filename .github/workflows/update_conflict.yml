@@ -25,6 +25,9 @@ jobs:
 
       - name: Run conflict update
         run: python update_conflict.py
+        env:
+          RENDER_APP_URL: ${{ secrets.RENDER_APP_URL }}
+          RENDER_INTERNAL_SECRET: ${{ secrets.RENDER_INTERNAL_SECRET }}
 
       - name: Commit if changed
         run: |

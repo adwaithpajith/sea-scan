@@ -1,10 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import pandas as pd
 import os
+import re
+import requests
+from bs4 import BeautifulSoup
 
 from .engine import get_routes, CHOKEPOINTS
 from .weather import get_weather_risk
@@ -32,6 +35,70 @@ print(f"Ready — {len(df_ports)} ports loaded.")
 class RouteRequest(BaseModel):
     source     : str
     destination: str
+
+# ---------------------------------------------------------------
+# Internal MARAD relay
+#
+# GitHub Actions' runner IPs are blocked (403) by maritime.dot.gov's WAF,
+# but this Render service can reach it fine. GitHub Actions calls this
+# endpoint instead of fetching MARAD directly, and this server does the
+# actual fetch on Render's IP and hands the parsed result back as JSON.
+# Protected by a shared secret so it can't be used as an open proxy.
+# ---------------------------------------------------------------
+INTERNAL_FETCH_SECRET = os.environ.get("INTERNAL_FETCH_SECRET", "")
+
+MARAD_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+@app.get("/internal/fetch-marad")
+def internal_fetch_marad(x_internal_secret: str = Header(None)):
+    if not INTERNAL_FETCH_SECRET or x_internal_secret != INTERNAL_FETCH_SECRET:
+        raise HTTPException(403, "Forbidden")
+
+    text = ""
+    headlines = []
+    try:
+        r = requests.get(
+            "https://www.maritime.dot.gov/msci-advisories",
+            headers=MARAD_HEADERS, timeout=15
+        )
+        if r.status_code != 200:
+            return {"ok": False, "status": r.status_code, "text": "", "headlines": []}
+
+        html = r.text
+        cutoff = html.find("Cancelled Advisories")
+        active_html = html[:cutoff] if cutoff != -1 else html
+
+        soup = BeautifulSoup(active_html, "html.parser")
+        links = []
+        for a in soup.find_all("a", href=True):
+            href = a["href"]
+            if re.search(r"/msci/\d{4}-\d{3}-", href):
+                full = href if href.startswith("http") else "https://www.maritime.dot.gov" + href
+                title = a.get_text(strip=True)
+                if full not in [l[0] for l in links]:
+                    links.append((full, title))
+
+        for _, title in links:
+            text += " " + title.lower()
+            if title:
+                headlines.append(title)
+
+        for link, _ in links[:15]:
+            try:
+                r2 = requests.get(link, headers=MARAD_HEADERS, timeout=10)
+                soup2 = BeautifulSoup(r2.text, "html.parser")
+                text += " " + soup2.get_text(separator=" ").lower()
+            except Exception:
+                pass
+
+        return {"ok": True, "status": 200, "text": text, "headlines": headlines}
+    except Exception as e:
+        return {"ok": False, "status": 0, "error": str(e), "text": "", "headlines": []}
 
 @app.get("/api/health")
 def health():

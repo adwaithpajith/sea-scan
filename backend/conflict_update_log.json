@@ -1,16 +1,13 @@
 {
-  "last_updated": "2026-08-16T10:32:59.388822",
+  "last_updated": "2026-08-16T17:19:14.739833",
   "sources_used": [
     "MARAD",
     "UKMTO",
     "gCaptain"
   ],
-  "text_chars": 3617,
-  "changes_detected": 2,
-  "changes": [
-    "Strait of Hormuz: 8.0 -> 9.5",
-    "Panama Canal: 2.0 -> 2.8"
-  ],
+  "text_chars": 3594,
+  "changes_detected": 0,
+  "changes": [],
   "scores": {
     "Bab el-Mandeb": 7.5,
     "Suez Canal": 3.5,

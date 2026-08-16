@@ -99,6 +99,7 @@ HEADERS = {
 def fetch_marad():
     print("Trying MARAD...")
     text = ""
+    headlines = []
     try:
         r = None
         for attempt in range(2):
@@ -113,7 +114,7 @@ def fetch_marad():
                 time.sleep(3)
         if r.status_code != 200:
             print(f"  MARAD failed after retry: {r.status_code}")
-            return ""
+            return "", []
         # Only look at the "Active Advisories" section of the page — cut the
         # HTML off before "Cancelled Advisories" so expired advisories don't
         # get scored as current risk.
@@ -136,12 +137,18 @@ def fetch_marad():
                 if full not in [l[0] for l in links]:
                     links.append((full, title))
         print(f"  Found {len(links)} active MARAD advisory links")
+        for _, title in links:
+            print(f"    - {title}")
 
         # Advisory titles alone are high-signal (e.g. "Red Sea, Bab el Mandeb
         # Strait ... Houthi Attacks on Commercial Vessels"), so fold them in
-        # even before the subpage fetch below.
+        # even before the subpage fetch below, and keep them separately so
+        # the actual headline can be quoted in the UI later, not just a
+        # keyword-hit count.
         for _, title in links:
             text += " " + title.lower()
+            if title:
+                headlines.append(title)
 
         for link, _ in links[:15]:
             try:
@@ -153,11 +160,12 @@ def fetch_marad():
         print(f"  MARAD: {len(text)} chars fetched")
     except Exception as e:
         print(f"  MARAD failed: {e}")
-    return text
+    return text, headlines
 
 def fetch_ukmto():
     print("Trying UKMTO...")
     text = ""
+
     # KNOWN LIMITATION: ukmto.org's product/incident listing pages are
     # client-side rendered (React/Vue-style SPA). A plain requests.get() gets
     # back an empty shell ("No products to display" / "0 reports") regardless
@@ -186,6 +194,7 @@ def fetch_ukmto():
 def fetch_gcaptain():
     print("Trying gCaptain RSS...")
     text = ""
+    headlines = []
     try:
         r = requests.get("https://gcaptain.com/feed/", headers=HEADERS, timeout=15)
         if r.status_code == 200:
@@ -199,6 +208,7 @@ def fetch_gcaptain():
                 desc_el  = item.find("description")
                 if title_el is not None and title_el.text:
                     text += " " + title_el.text.lower()
+                    headlines.append(title_el.text.strip())
                 if desc_el is not None and desc_el.text:
                     text += " " + desc_el.text.lower()
             print(f"  gCaptain: {len(text)} chars from {len(items)} articles")
@@ -206,9 +216,10 @@ def fetch_gcaptain():
             print(f"  gCaptain returned {r.status_code}")
     except Exception as e:
         print(f"  gCaptain failed: {e}")
-    return text
+    return text, headlines
 
-def score_region(text, region):
+def score_region(text, region, headlines=None):
+    headlines = headlines or []
     base = BASE_SCORES.get(region, 1.0)
     if region in STATIC_REASONS:
         return base, STATIC_REASONS[region]
@@ -228,11 +239,30 @@ def score_region(text, region):
     elif medium_hits >= 1:  score = min(10.0, base + 0.2)
     elif low_hits    >= 3:  score = max(0,    base - 0.3)
     now = datetime.utcnow().strftime('%d %b %Y %H:%M UTC')
-    reason = (
-        f'Advisory scan {now}: '
-        f'{high_hits} critical + {medium_hits} elevated keyword matches. '
-        f'Sources: MARAD / UKMTO / gCaptain.'
-    )
+
+    # Find the actual headline that mentions this region, so the reason can
+    # name the real event instead of only reporting a keyword-hit count.
+    matching_headline = None
+    for h in headlines:
+        h_lower = h.lower()
+        if any(term in h_lower for term in cfg['terms']):
+            matching_headline = h.strip()
+            break
+
+    if matching_headline:
+        reason = (
+            f'"{matching_headline}" \u2014 scan {now}: '
+            f'{high_hits} critical + {medium_hits} elevated keyword matches.'
+        )
+    else:
+        # No specific headline available (e.g. the match came from a
+        # near-empty UKMTO fetch or an advisory subpage body rather than a
+        # captured title) — fall back to the count-only summary.
+        reason = (
+            f'Advisory scan {now}: '
+            f'{high_hits} critical + {medium_hits} elevated keyword matches. '
+            f'Sources: MARAD / UKMTO / gCaptain.'
+        )
     return round(score, 1), reason
 
 def read_existing_scores():
@@ -300,9 +330,19 @@ def main():
     print(f"{'='*55}\n")
     existing = read_existing_scores()
     combined = ""
-    combined += fetch_marad()
-    combined += fetch_ukmto()
-    combined += fetch_gcaptain()
+    all_headlines = []
+
+    marad_text, marad_headlines = fetch_marad()
+    combined += marad_text
+    all_headlines += marad_headlines
+
+    ukmto_text = fetch_ukmto()
+    combined += ukmto_text
+
+    gcap_text, gcap_headlines = fetch_gcaptain()
+    combined += gcap_text
+    all_headlines += gcap_headlines
+
     if not combined.strip():
         print("\n⚠ All sources failed — keeping existing scores unchanged.")
         return
@@ -311,7 +351,7 @@ def main():
     scores = {}
     changed = []
     for region, base in BASE_SCORES.items():
-        new_score, reason = score_region(combined, region)
+        new_score, reason = score_region(combined, region, all_headlines)
         old_score = existing.get(region, (base, ''))[0] if existing else base
         delta = round(new_score - old_score, 1)
         delta_str = f"  ({'+' if delta>0 else ''}{delta})" if delta != 0 else ''

@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-08-16T17:40:47.628440",
+  "last_updated": "2026-08-17T06:41:22.209964",
   "sources_used": [
     "MARAD",
     "UKMTO",
     "gCaptain"
   ],
-  "text_chars": 3594,
+  "text_chars": 3590,
   "changes_detected": 2,
   "changes": [
     "Strait of Hormuz: 8.0 -> 9.5",

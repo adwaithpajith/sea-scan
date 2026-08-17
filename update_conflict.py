@@ -2,7 +2,7 @@
 """
 SeaRoute Intelligence Platform — Conflict Risk Auto-Updater
 Runs daily via GitHub Actions.
-Sources: MARAD MSCI (primary) -> UKMTO (fallback) -> gCaptain RSS (fallback)
+Sources: MARAD MSCI (primary) -> Maritime Executive RSS -> gCaptain RSS -> UKMTO (fallback)
 """
 import requests
 from bs4 import BeautifulSoup
@@ -227,6 +227,35 @@ def fetch_ukmto():
         print(f"  UKMTO failed: {e}")
     return text
 
+def fetch_maritime_executive():
+    print("Trying Maritime Executive RSS...")
+    text = ""
+    headlines = []
+    try:
+        r = requests.get("https://maritime-executive.com/articles.rss", headers=HEADERS, timeout=15)
+        if r.status_code == 200:
+            # This feed is Atom format (<entry><title>/<summary>), unlike
+            # gCaptain's RSS 2.0 format (<item><title>/<description>), so it
+            # needs its own namespace-aware parse rather than sharing
+            # fetch_gcaptain()'s logic.
+            ns = {"atom": "http://www.w3.org/2005/Atom"}
+            root = ET.fromstring(r.content)
+            entries = root.findall("atom:entry", ns)[:20]
+            for entry in entries:
+                title_el   = entry.find("atom:title", ns)
+                summary_el = entry.find("atom:summary", ns)
+                if title_el is not None and title_el.text:
+                    text += " " + title_el.text.lower()
+                    headlines.append(title_el.text.strip())
+                if summary_el is not None and summary_el.text:
+                    text += " " + summary_el.text.lower()
+            print(f"  Maritime Executive: {len(text)} chars from {len(entries)} articles")
+        else:
+            print(f"  Maritime Executive returned {r.status_code}")
+    except Exception as e:
+        print(f"  Maritime Executive failed: {e}")
+    return text, headlines
+
 def fetch_gcaptain():
     print("Trying gCaptain RSS...")
     text = ""
@@ -297,7 +326,7 @@ def score_region(text, region, headlines=None):
         reason = (
             f'Advisory scan {now}: '
             f'{high_hits} critical + {medium_hits} elevated keyword matches. '
-            f'Sources: MARAD / UKMTO / gCaptain.'
+            f'Sources: MARAD / Maritime Executive / gCaptain / UKMTO.'
         )
     return round(score, 1), reason
 
@@ -319,7 +348,7 @@ def rebuild_conflict_py(scores):
     lines = []
     lines.append("# conflict.py")
     lines.append(f"# Auto-updated by GitHub Actions on {now}")
-    lines.append("# Sources: MARAD MSCI · UKMTO · gCaptain RSS")
+    lines.append("# Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO")
     lines.append("# Schedule: Daily at 06:00 UTC")
     lines.append("# DO NOT EDIT MANUALLY")
     lines.append("")
@@ -372,12 +401,16 @@ def main():
     combined += marad_text
     all_headlines += marad_headlines
 
-    ukmto_text = fetch_ukmto()
-    combined += ukmto_text
+    marex_text, marex_headlines = fetch_maritime_executive()
+    combined += marex_text
+    all_headlines += marex_headlines
 
     gcap_text, gcap_headlines = fetch_gcaptain()
     combined += gcap_text
     all_headlines += gcap_headlines
+
+    ukmto_text = fetch_ukmto()
+    combined += ukmto_text
 
     if not combined.strip():
         print("\n⚠ All sources failed — keeping existing scores unchanged.")
@@ -403,7 +436,7 @@ def main():
     rebuild_conflict_py(scores)
     log = {
         "last_updated"     : datetime.utcnow().isoformat(),
-        "sources_used"     : ["MARAD", "UKMTO", "gCaptain"],
+        "sources_used"     : ["MARAD", "Maritime Executive", "gCaptain", "UKMTO"],
         "text_chars"       : len(combined),
         "changes_detected" : len(changed),
         "changes"          : changed,

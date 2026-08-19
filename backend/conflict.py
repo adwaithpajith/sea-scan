@@ -1,19 +1,19 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-08-18 06:32 UTC
+# Auto-updated by GitHub Actions on 2026-08-19 06:33 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Asian Refiners Ask to Pick Up Saudi Oil Outside Risky Red Sea\" — scan 18 Aug 2026 06:32 UTC: 3 critical + 1 elevated keyword matches."),
-    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (10.0, "\"Iran Claims to Have Seized Tanker as It Continues Targeting UAE Shipping\" — scan 18 Aug 2026 06:32 UTC: 4 critical + 2 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Houthis Fighting on All Fronts and Aiming for the Red Sea Coast\" — scan 19 Aug 2026 06:33 UTC: 3 critical + 0 elevated keyword matches."),
+    "Suez Canal": (5.0, "\"MSC Tests Transits as Container Volumes Rise at Suez Canal\" — scan 19 Aug 2026 06:33 UTC: 2 critical + 2 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"UAE Suspends Trade With Iran Following Antiship Missile Strike\" — scan 19 Aug 2026 06:33 UTC: 3 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.2, "\"Australia Improves its Surveillance Capability Over the South China Sea\" — scan 18 Aug 2026 06:32 UTC: 0 critical + 1 elevated keyword matches."),
+    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Tanker Struck Near Black Sea Terminal as Both Sides Continue Attacks\" — scan 18 Aug 2026 06:32 UTC: 3 critical + 0 elevated keyword matches."),
-    "Panama Canal": (2.8, "\"Panama Canal Marks 112 Years With an Eye on the Future\" — scan 18 Aug 2026 06:32 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "Advisory scan 19 Aug 2026 06:33 UTC: 3 critical + 1 elevated keyword matches. Sources: MARAD / Maritime Executive / gCaptain / UKMTO."),
+    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),

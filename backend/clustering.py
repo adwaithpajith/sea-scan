@@ -3,24 +3,34 @@ import numpy as np
 from math import radians, sin, cos, sqrt, atan2
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
+from .conflict import CHOKEPOINT_RISK
 
-CHOKEPOINT_RISK_SCORES = {
-    "Bab el-Mandeb"       : (12.58,  43.32, 9.5),
-    "Suez Canal"          : (30.45,  32.35, 7.0),
-    "Strait of Hormuz"    : (26.57,  56.25, 7.5),
-    "Strait of Malacca"   : ( 1.25, 103.82, 3.0),
-    "Luzon Strait"        : (20.00, 121.50, 4.5),
-    "Strait of Gibraltar" : (35.96,  -5.48, 1.0),
-    "Dover Strait"        : (51.00,   1.50, 1.0),
-    "Bosphorus Strait"    : (41.12,  29.08, 3.0),
-    "Panama Canal"        : ( 9.08, -79.68, 1.5),
-    "Cape of Good Hope"   : (-34.36, 18.47, 1.0),
-    "Lombok Strait"       : (-8.75, 115.75, 2.0),
-    "Tsugaru Strait"      : (41.62, 140.92, 2.0),
-    "Cape Horn"           : (-55.98,-67.27, 1.0),
-    "Strait of Magellan"  : (-54.00,-70.80, 1.0),
-    "Danish Straits"      : (55.50,  10.50, 2.5),
+# Fixed geographic coordinates of each major chokepoint. Risk *scores* are
+# deliberately NOT stored here anymore — they are read live from
+# backend/conflict.py (the same auto-refreshed table route scoring uses),
+# so port clusters stay in sync with the daily conflict-risk pipeline
+# instead of silently drifting from it on a frozen snapshot.
+CHOKEPOINT_COORDS = {
+    "Bab el-Mandeb"       : (12.58,  43.32),
+    "Suez Canal"          : (30.45,  32.35),
+    "Strait of Hormuz"    : (26.57,  56.25),
+    "Strait of Malacca"   : ( 1.25, 103.82),
+    "Luzon Strait"        : (20.00, 121.50),
+    "Strait of Gibraltar" : (35.96,  -5.48),
+    "Dover Strait"        : (51.00,   1.50),
+    "Bosphorus Strait"    : (41.12,  29.08),
+    "Panama Canal"        : ( 9.08, -79.68),
+    "Cape of Good Hope"   : (-34.36, 18.47),
+    "Lombok Strait"       : (-8.75, 115.75),
+    "Tsugaru Strait"      : (41.62, 140.92),
+    "Cape Horn"           : (-55.98,-67.27),
+    "Strait of Magellan"  : (-54.00,-70.80),
+    "Danish Straits"      : (55.50,  10.50),
 }
+
+# Only used if a chokepoint name is somehow missing from conflict.py —
+# should not happen in normal operation since the name sets match exactly.
+_FALLBACK_RISK = 1.0
 
 CLUSTER_INFO = {
     0: {"label": "Low Risk",      "color": "#2ecc71"},
@@ -42,12 +52,13 @@ def haversine_km(lat1, lon1, lat2, lon2):
     return R*2*atan2(sqrt(a),sqrt(1-a))
 
 def nearest_chokepoint_risk(lat, lon):
-    best_dist, best_risk = float("inf"), 0.0
-    for cp_lat,cp_lon,risk in CHOKEPOINT_RISK_SCORES.values():
+    best_dist, best_name = float("inf"), None
+    for name, (cp_lat, cp_lon) in CHOKEPOINT_COORDS.items():
         d = haversine_km(lat, lon, cp_lat, cp_lon)
         if d < best_dist:
-            best_dist, best_risk = d, risk
-    return best_dist, best_risk
+            best_dist, best_name = d, name
+    risk = CHOKEPOINT_RISK.get(best_name, (_FALLBACK_RISK, ""))[0]
+    return best_dist, risk
 
 def build_cluster_model(df_ports):
     print("Clustering ports (K-Means, k=5)...")

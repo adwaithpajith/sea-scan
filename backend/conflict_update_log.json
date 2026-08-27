@@ -1,29 +1,28 @@
 {
-  "last_updated": "2026-08-26T06:37:25.857566",
+  "last_updated": "2026-08-27T17:12:58.871477",
   "sources_used": [
     "MARAD",
     "Maritime Executive",
     "gCaptain",
     "UKMTO"
   ],
-  "text_chars": 8581,
-  "changes_detected": 5,
+  "text_chars": 8696,
+  "changes_detected": 4,
   "changes": [
     "Bab el-Mandeb: 7.5 -> 9.0",
-    "Suez Canal: 3.5 -> 4.3",
     "Strait of Hormuz: 8.0 -> 9.5",
-    "Strait of Malacca: 3.0 -> 4.5",
-    "Danish Straits: 3.8 -> 3.0"
+    "Bosphorus Strait: 5.5 -> 7.0",
+    "Panama Canal: 2.0 -> 2.8"
   ],
   "scores": {
     "Bab el-Mandeb": 9.0,
-    "Suez Canal": 4.3,
+    "Suez Canal": 3.5,
     "Strait of Hormuz": 9.5,
-    "Strait of Malacca": 4.5,
+    "Strait of Malacca": 3.0,
     "Luzon Strait": 4.0,
     "Strait of Gibraltar": 1.5,
     "Dover Strait": 1.0,
-    "Bosphorus Strait": 5.5,
+    "Bosphorus Strait": 7.0,
     "Panama Canal": 2.8,
     "Cape of Good Hope": 1.0,
     "Lombok Strait": 2.0,

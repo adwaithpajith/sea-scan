@@ -535,8 +535,10 @@ advanceLoader();
 
 // Map
 const map=L.map("map",{zoomControl:true}).setView([20,30],2);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{
-  attribution:"&copy; OpenStreetMap &copy; CARTO",maxZoom:19
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?api_key=cb1_2f3w_1_210a2053f283a8133b69f77d",{
+  attribution:"&copy; OpenStreetMap &copy; CARTO",
+  maxZoom:19,
+  subdomains:"abcd"
 }).addTo(map);
 
 let routeLayers=[],portLayer=null;

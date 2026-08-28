@@ -100,6 +100,7 @@ def fetch_marad_direct():
     print("Trying MARAD (direct)...")
     text = ""
     headlines = []
+    snippets = []
     try:
         r = None
         for attempt in range(2):
@@ -114,7 +115,7 @@ def fetch_marad_direct():
                 time.sleep(3)
         if r.status_code != 200:
             print(f"  MARAD direct failed after retry: {r.status_code}")
-            return "", []
+            return "", [], []
         # Only look at the "Active Advisories" section of the page — cut the
         # HTML off before "Cancelled Advisories" so expired advisories don't
         # get scored as current risk.
@@ -145,17 +146,20 @@ def fetch_marad_direct():
             if title:
                 headlines.append(title)
 
-        for link, _ in links[:15]:
+        for link, title in links[:15]:
             try:
                 r2 = requests.get(link, headers=HEADERS, timeout=10)
                 soup2 = BeautifulSoup(r2.text, "html.parser")
-                text += " " + soup2.get_text(separator=" ").lower()
+                body_orig = soup2.get_text(separator=" ")
+                text += " " + body_orig.lower()
+                if body_orig.strip():
+                    snippets.append((title or "MARAD advisory", body_orig))
             except Exception as e:
                 print(f"  Skip {link[:50]}: {e}")
         print(f"  MARAD direct: {len(text)} chars fetched")
     except Exception as e:
         print(f"  MARAD direct failed: {e}")
-    return text, headlines
+    return text, headlines, snippets
 
 def fetch_marad_via_render():
     print("Trying MARAD via Render relay...")
@@ -163,7 +167,7 @@ def fetch_marad_via_render():
     render_secret = os.environ.get("RENDER_INTERNAL_SECRET", "")
     if not render_url or not render_secret:
         print("  RENDER_APP_URL / RENDER_INTERNAL_SECRET not set — skipping relay")
-        return "", []
+        return "", [], []
     try:
         r = requests.get(
             f"{render_url}/internal/fetch-marad",
@@ -172,29 +176,33 @@ def fetch_marad_via_render():
         )
         if r.status_code != 200:
             print(f"  Render relay returned {r.status_code}")
-            return "", []
+            return "", [], []
         data = r.json()
         if not data.get("ok"):
             print(f"  Render relay reported failure: {data.get('error', data.get('status'))}")
-            return "", []
+            return "", [], []
         text = data.get("text", "")
         headlines = data.get("headlines", [])
         print(f"  MARAD via Render: {len(text)} chars, {len(headlines)} headlines")
         for h in headlines:
             print(f"    - {h}")
-        return text, headlines
+        # NOTE: the relay endpoint only exposes aggregate text + headline
+        # titles, not per-article body text, so it can't contribute quotable
+        # body snippets the way the direct-fetch path can. Minor, defensible
+        # gap since this is the less-common fallback path.
+        return text, headlines, []
     except Exception as e:
         print(f"  Render relay failed: {e}")
-        return "", []
+        return "", [], []
 
 def fetch_marad():
     # GitHub Actions' runner IPs are blocked (403) by maritime.dot.gov's WAF.
     # Try the direct fetch first (works if that ever changes), and fall back
     # to relaying the request through the Render-hosted backend, whose IPs
     # aren't on the same blocklist.
-    text, headlines = fetch_marad_direct()
+    text, headlines, snippets = fetch_marad_direct()
     if text.strip():
-        return text, headlines
+        return text, headlines, snippets
     print("  MARAD direct fetch was empty — falling back to Render relay")
     return fetch_marad_via_render()
 
@@ -231,6 +239,7 @@ def fetch_maritime_executive():
     print("Trying Maritime Executive RSS...")
     text = ""
     headlines = []
+    snippets = []
     try:
         r = requests.get("https://maritime-executive.com/articles.rss", headers=HEADERS, timeout=15)
         if r.status_code == 200:
@@ -244,22 +253,25 @@ def fetch_maritime_executive():
             for entry in entries:
                 title_el   = entry.find("atom:title", ns)
                 summary_el = entry.find("atom:summary", ns)
-                if title_el is not None and title_el.text:
-                    text += " " + title_el.text.lower()
-                    headlines.append(title_el.text.strip())
+                title_txt = title_el.text.strip() if (title_el is not None and title_el.text) else None
+                if title_txt:
+                    text += " " + title_txt.lower()
+                    headlines.append(title_txt)
                 if summary_el is not None and summary_el.text:
                     text += " " + summary_el.text.lower()
+                    snippets.append((title_txt or "Maritime Executive", summary_el.text.strip()))
             print(f"  Maritime Executive: {len(text)} chars from {len(entries)} articles")
         else:
             print(f"  Maritime Executive returned {r.status_code}")
     except Exception as e:
         print(f"  Maritime Executive failed: {e}")
-    return text, headlines
+    return text, headlines, snippets
 
 def fetch_gcaptain():
     print("Trying gCaptain RSS...")
     text = ""
     headlines = []
+    snippets = []
     try:
         r = requests.get("https://gcaptain.com/feed/", headers=HEADERS, timeout=15)
         if r.status_code == 200:
@@ -271,20 +283,47 @@ def fetch_gcaptain():
             for item in items:
                 title_el = item.find("title")
                 desc_el  = item.find("description")
-                if title_el is not None and title_el.text:
-                    text += " " + title_el.text.lower()
-                    headlines.append(title_el.text.strip())
+                title_txt = title_el.text.strip() if (title_el is not None and title_el.text) else None
+                if title_txt:
+                    text += " " + title_txt.lower()
+                    headlines.append(title_txt)
                 if desc_el is not None and desc_el.text:
                     text += " " + desc_el.text.lower()
+                    snippets.append((title_txt or "gCaptain", desc_el.text.strip()))
             print(f"  gCaptain: {len(text)} chars from {len(items)} articles")
         else:
             print(f"  gCaptain returned {r.status_code}")
     except Exception as e:
         print(f"  gCaptain failed: {e}")
-    return text, headlines
+    return text, headlines, snippets
 
-def score_region(text, region, headlines=None):
+def _extract_snippet(body, terms, window=90):
+    """
+    Find the first occurrence of any term in body (case-insensitive) and
+    return a short excerpt centered on it, trimmed to word boundaries with
+    ellipses where truncated, so a real quote can be shown even when no
+    headline title itself matches.
+    """
+    body_lower = body.lower()
+    for term in terms:
+        idx = body_lower.find(term)
+        if idx == -1:
+            continue
+        start = max(0, idx - window)
+        end = min(len(body), idx + len(term) + window)
+        excerpt = body[start:end].strip()
+        if start > 0:
+            sp = excerpt.find(" ")
+            excerpt = ("\u2026" + excerpt[sp + 1:]) if sp != -1 else ("\u2026" + excerpt)
+        if end < len(body):
+            sp = excerpt.rfind(" ")
+            excerpt = (excerpt[:sp] + "\u2026") if sp != -1 else (excerpt + "\u2026")
+        return excerpt
+    return None
+
+def score_region(text, region, headlines=None, snippets=None):
     headlines = headlines or []
+    snippets = snippets or []
     base = BASE_SCORES.get(region, 1.0)
     if region in STATIC_REASONS:
         return base, STATIC_REASONS[region]
@@ -305,8 +344,7 @@ def score_region(text, region, headlines=None):
     elif low_hits    >= 3:  score = max(0,    base - 0.3)
     now = datetime.utcnow().strftime('%d %b %Y %H:%M UTC')
 
-    # Find the actual headline that mentions this region, so the reason can
-    # name the real event instead of only reporting a keyword-hit count.
+    # 1) Prefer an actual headline that mentions this region.
     matching_headline = None
     for h in headlines:
         h_lower = h.lower()
@@ -320,14 +358,34 @@ def score_region(text, region, headlines=None):
             f'{high_hits} critical + {medium_hits} elevated keyword matches.'
         )
     else:
-        # No specific headline available (e.g. the match came from a
-        # near-empty UKMTO fetch or an advisory subpage body rather than a
-        # captured title) — fall back to the count-only summary.
-        reason = (
-            f'Advisory scan {now}: '
-            f'{high_hits} critical + {medium_hits} elevated keyword matches. '
-            f'Sources: MARAD / Maritime Executive / gCaptain / UKMTO.'
-        )
+        # 2) No headline title matched — the region may still be mentioned
+        # inside an article's body/description (this is what was happening
+        # silently before: e.g. a general shipping-news roundup whose own
+        # headline doesn't name the region, but whose body text does).
+        # Search captured body snippets and quote a real excerpt instead of
+        # falling back to a bare keyword count.
+        matched_excerpt = None
+        matched_source = None
+        for source_label, body in snippets:
+            excerpt = _extract_snippet(body, cfg['terms'])
+            if excerpt:
+                matched_excerpt = excerpt
+                matched_source = source_label
+                break
+        if matched_excerpt:
+            reason = (
+                f'{matched_source}: "{matched_excerpt}" \u2014 scan {now}: '
+                f'{high_hits} critical + {medium_hits} elevated keyword matches.'
+            )
+        else:
+            # 3) Genuinely no attributable text (e.g. only UKMTO's
+            # near-empty blob contributed) — fall back to the count-only
+            # summary rather than inventing a quote.
+            reason = (
+                f'Advisory scan {now}: '
+                f'{high_hits} critical + {medium_hits} elevated keyword matches. '
+                f'Sources: MARAD / Maritime Executive / gCaptain / UKMTO.'
+            )
     return round(score, 1), reason
 
 def read_existing_scores():
@@ -396,18 +454,22 @@ def main():
     existing = read_existing_scores()
     combined = ""
     all_headlines = []
+    all_snippets = []
 
-    marad_text, marad_headlines = fetch_marad()
+    marad_text, marad_headlines, marad_snippets = fetch_marad()
     combined += marad_text
     all_headlines += marad_headlines
+    all_snippets += marad_snippets
 
-    marex_text, marex_headlines = fetch_maritime_executive()
+    marex_text, marex_headlines, marex_snippets = fetch_maritime_executive()
     combined += marex_text
     all_headlines += marex_headlines
+    all_snippets += marex_snippets
 
-    gcap_text, gcap_headlines = fetch_gcaptain()
+    gcap_text, gcap_headlines, gcap_snippets = fetch_gcaptain()
     combined += gcap_text
     all_headlines += gcap_headlines
+    all_snippets += gcap_snippets
 
     ukmto_text = fetch_ukmto()
     combined += ukmto_text
@@ -420,7 +482,7 @@ def main():
     scores = {}
     changed = []
     for region, base in BASE_SCORES.items():
-        new_score, reason = score_region(combined, region, all_headlines)
+        new_score, reason = score_region(combined, region, all_headlines, all_snippets)
         old_score = existing.get(region, (base, ''))[0] if existing else base
         delta = round(new_score - old_score, 1)
         delta_str = f"  ({'+' if delta>0 else ''}{delta})" if delta != 0 else ''

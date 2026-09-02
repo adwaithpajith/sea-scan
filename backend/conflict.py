@@ -1,5 +1,5 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-01 10:56 UTC
+# Auto-updated by GitHub Actions on 2026-09-02 10:23 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
@@ -7,19 +7,19 @@
 CHOKEPOINT_RISK = {
     "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (10.0, "\"CENTCOM Says Iran Attempts to Intimidate Shipping with False Reports\" — scan 01 Sep 2026 10:56 UTC: 4 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Qatari, UAE LNG Cargoes Transferred Via Ship-to-Ship Outside Strait of Hormuz\" — scan 02 Sep 2026 10:23 UTC: 3 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (8.0, "\"Video: Two Abandoned Vessels Attacked in Black Sea Wash Ashore in Turkey\" — scan 01 Sep 2026 10:56 UTC: 4 critical + 0 elevated keyword matches."),
-    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
+    "Bosphorus Strait": (7.0, "\"IMO Condemns Attacks on Merchant Vessels in the Sea of Azov & Black Sea\" — scan 02 Sep 2026 10:23 UTC: 2 critical + 0 elevated keyword matches."),
+    "Panama Canal": (3.5, "\"El Niño Strengthens, Raising New Concerns for Panama Canal\" — scan 02 Sep 2026 10:23 UTC: 2 critical + 2 elevated keyword matches."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"EU Forces Board Sixth Suspected Russian Shadow Fleet Tanker\" — scan 01 Sep 2026 10:56 UTC: 1 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.8, "\"Sweden Finalizes Contract for Four French-Built Frigates\" — scan 02 Sep 2026 10:23 UTC: 1 critical + 1 elevated keyword matches."),
 }
 
 

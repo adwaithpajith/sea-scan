@@ -2,7 +2,7 @@
 
 A maritime trade route intelligence platform that visualizes global sea routes with live risk and efficiency scoring. Built as an M.Sc. Data Science specialization project at CHRIST (Deemed to be University).
 
-**Live demo:** [sea-scan on Render](https://sea-scan.onrender.com/)
+**Live demo:** [Website](https://sea-scan.onrender.com/)
 **Repository:** https://github.com/adwaithpajith/sea-scan
 
 ---

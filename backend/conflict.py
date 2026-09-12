@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-11 10:25 UTC
+# Auto-updated by GitHub Actions on 2026-09-12 09:55 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Pirates Hijack Bulker Off Yemen in the 25th Recorded Incident of 2026\" — scan 11 Sep 2026 10:25 UTC: 2 critical + 2 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Decisive Moment in Gulf War: Houthis Position to Close Bab el-Mandeb\" — scan 12 Sep 2026 09:55 UTC: 2 critical + 0 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Two Tankers Attacked on Omani Route in Strait of Hormuz, Brent Hits $108\" — scan 11 Sep 2026 10:25 UTC: 3 critical + 2 elevated keyword matches."),
+    "Strait of Hormuz": (8.8, "\"Two Tankers Attacked on Omani Route in Strait of Hormuz, Brent Hits $108\" — scan 12 Sep 2026 09:55 UTC: 1 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Azerbaijan Issues Warning After Russian Attack Kills Two Seafarers\" — scan 11 Sep 2026 10:25 UTC: 2 critical + 1 elevated keyword matches."),
-    "Panama Canal": (2.8, "Fire on Chinese Car Carrier Appears to Flare Up After a Month: \"Officials in Panama are reporting that they are monitoring the salvage efforts on the Chinese car carrier…\" — scan 11 Sep 2026 10:25 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"Russia Has Two Military Sealift Flotillas in the Mediterranean\" — scan 12 Sep 2026 09:55 UTC: 1 critical + 0 elevated keyword matches."),
+    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"Photos: Deconstruction of MSC Baltic III Wreck Nears Halfway Point\" — scan 11 Sep 2026 10:25 UTC: 2 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.0, "No specific advisory mentions for Danish Straits in current sources."),
 }
 
 

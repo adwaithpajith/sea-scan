@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-15 10:50 UTC
+# Auto-updated by GitHub Actions on 2026-09-16 10:40 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Houthis Being Pushed Back from Bab el-Mandeb\" — scan 15 Sep 2026 10:50 UTC: 3 critical + 2 elevated keyword matches."),
-    "Suez Canal": (4.3, "\"Maersk, Hapag-Lloyd Accelerate Return to Suez Despite Red Sea Risks\" — scan 15 Sep 2026 10:50 UTC: 1 critical + 2 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Oman's Strait of Hormuz Conference Implodes\" — scan 15 Sep 2026 10:50 UTC: 2 critical + 2 elevated keyword matches."),
-    "Strait of Malacca": (4.5, "\"Rough Weather Hampers Search for Survivors From Lost Indonesian Ferry\" — scan 15 Sep 2026 10:50 UTC: 2 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Oil Prices Jump at News of Pause in Saudi Loadings at Red Sea Terminal\" — scan 16 Sep 2026 10:40 UTC: 2 critical + 0 elevated keyword matches."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (9.5, "\"Oman Conducts SAR as US and Iran Argue Over Circumstances of Tanker Attack\" — scan 16 Sep 2026 10:40 UTC: 3 critical + 0 elevated keyword matches."),
+    "Strait of Malacca": (3.8, "\"Malaysia Detains Containers Bound for Israel for Investigation\" — scan 16 Sep 2026 10:40 UTC: 1 critical + 0 elevated keyword matches."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (5.5, "No specific advisory mentions for Bosphorus Strait in current sources."),
-    "Panama Canal": (2.8, "\"Swedish Club Warns Cape Horn Is No Simple Panama Canal Alternative\" — scan 15 Sep 2026 10:50 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Russian Frigate Launches Flares at NATO Helicopter\" — scan 16 Sep 2026 10:40 UTC: 2 critical + 0 elevated keyword matches."),
+    "Panama Canal": (3.5, "\"The Panama Canal Appoints Miguel Lorenzo as Deputy Administrator\" — scan 16 Sep 2026 10:40 UTC: 2 critical + 0 elevated keyword matches."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"Video: Bow Section Removed from the Wreck of MSC Baltic III\" — scan 15 Sep 2026 10:50 UTC: 3 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.8, "Russia Accuses Danish Military Helicopters of making Dangerous Maneuvers Near Its Warships: \"…Danish military helicopters of making dangerous maneuvers near its warships in the Baltic Sea and handed an official note to Copenhagen complaining about such incidents,…\" — scan 16 Sep 2026 10:40 UTC: 1 critical + 1 elevated keyword matches."),
 }
 
 

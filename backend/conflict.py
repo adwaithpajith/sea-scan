@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-18 10:24 UTC
+# Auto-updated by GitHub Actions on 2026-09-19 10:07 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"China Presses Iran to Help Rein in Houthis After Saudi Appeal, Sources Say\" — scan 18 Sep 2026 10:24 UTC: 3 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Africa’s Red Sea States Face Growing Risks as Houthis Expand Their Reach\" — scan 19 Sep 2026 10:07 UTC: 2 critical + 2 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"US Sanctions Bitcoin Exchange for Handling Iran's Hormuz Transit Fees\" — scan 18 Sep 2026 10:24 UTC: 3 critical + 1 elevated keyword matches."),
-    "Strait of Malacca": (4.5, "\"Indonesia Takes Delivery of a \"Free\" Aircraft Carrier\" — scan 18 Sep 2026 10:24 UTC: 2 critical + 0 elevated keyword matches."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Strait of Hormuz": (9.5, "\"Iran Exploits Attack on Small Product Tanker to Assert Hormuz Control\" — scan 19 Sep 2026 10:07 UTC: 2 critical + 2 elevated keyword matches."),
+    "Strait of Malacca": (4.5, "\"Indonesia Takes Delivery of a \"Free\" Aircraft Carrier\" — scan 19 Sep 2026 10:07 UTC: 2 critical + 0 elevated keyword matches."),
+    "Luzon Strait": (4.2, "\"Chinese Coast Guard Vessel Hits Philippine Supply Boat in Spratly Islands\" — scan 19 Sep 2026 10:07 UTC: 0 critical + 1 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Turkey Proposes an Expanded \"Grain Initiative\" to End Black Sea Strikes\" — scan 18 Sep 2026 10:24 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"London’s Marine Insurers Widen Black Sea High Risk Zone as Shipping Attacks Surge\" — scan 19 Sep 2026 10:07 UTC: 1 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"Finland, Sweden, and EU Work Together to Improve Baltic Security\" — scan 18 Sep 2026 10:24 UTC: 3 critical + 0 elevated keyword matches."),
+    "Danish Straits": (4.5, "\"Finland Practices Ship Boardings at Sea to Stop Undersea Sabotage\" — scan 19 Sep 2026 10:07 UTC: 2 critical + 0 elevated keyword matches."),
 }
 
 

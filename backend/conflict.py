@@ -1,18 +1,18 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-21 11:42 UTC
+# Auto-updated by GitHub Actions on 2026-09-22 10:46 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
+    "Bab el-Mandeb": (9.0, "\"EU's Top Diplomat Calls for Bigger Naval Force in the Red Sea\" — scan 22 Sep 2026 10:46 UTC: 3 critical + 2 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"IRGC Profiteer Babak Zanjani Skims Iran’s Hormuz Tolls\" — scan 21 Sep 2026 11:42 UTC: 3 critical + 1 elevated keyword matches."),
-    "Strait of Malacca": (3.8, "\"Indonesia Continues Search For Hundreds Missing In Capsized Ship\" — scan 21 Sep 2026 11:42 UTC: 1 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (8.8, "\"Iran Keeps Up Pressure, Hitting Another Tanker as US Asserts Hormuz is Open\" — scan 22 Sep 2026 10:46 UTC: 1 critical + 1 elevated keyword matches."),
+    "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (6.3, "\"U.S. Sanctions Law Puts Russia’s Arctic Yamal LNG Fleet in Crosshairs\" — scan 21 Sep 2026 11:42 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"U.S. Sanctions Law Puts Russia’s Arctic Yamal LNG Fleet in Crosshairs\" — scan 22 Sep 2026 10:46 UTC: 2 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),

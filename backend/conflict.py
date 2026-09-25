@@ -1,18 +1,18 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-24 10:56 UTC
+# Auto-updated by GitHub Actions on 2026-09-25 10:57 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (8.3, "Overcapacity Looms Over Container Shipping as Supply Pressure Mounts: \"The return of container vessels to the Suez Canal - Red Sea route is likely to have a profound impact on the sector, especially as it continues to…\" — scan 24 Sep 2026 10:56 UTC: 1 critical + 0 elevated keyword matches."),
-    "Suez Canal": (4.3, "Overcapacity Looms Over Container Shipping as Supply Pressure Mounts: \"The return of container vessels to the Suez Canal - Red Sea route is likely to have a profound impact on the sector, especially as…\" — scan 24 Sep 2026 10:56 UTC: 1 critical + 1 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Indian Seafarer Union Demands Action as Another Ship is Attacked in Hormuz\" — scan 24 Sep 2026 10:56 UTC: 2 critical + 0 elevated keyword matches."),
-    "Strait of Malacca": (3.8, "\"Death Toll from Capsized Ship in Indonesia Rises to 20 as Search Continues for 115 Missing Passengers\" — scan 24 Sep 2026 10:56 UTC: 1 critical + 0 elevated keyword matches."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Bab el-Mandeb": (9.0, "\"Houthis Consolidate Gains and Pause Before the Next Push\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
+    "Suez Canal": (4.3, "\"Container Rates Edge Lower Ahead of Golden Week as Suez Traffic Returns\" — scan 25 Sep 2026 10:57 UTC: 1 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Bahrain Leads Countries’ Call for Full Reopening of Strait of Hormuz Without Tolls\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
+    "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
+    "Luzon Strait": (4.2, "\"Taiwan Upgrades Maritime Patrol Capacity for Vulnerable South China Sea Outpost\" — scan 25 Sep 2026 10:57 UTC: 0 critical + 1 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (6.3, "\"Captain Killed in Russia’s Latest Attack on Merchant Shipping\" — scan 24 Sep 2026 10:56 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Report: CIA Warns of Russian Plans for Ship-Based Drone Strikes in the Med\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),

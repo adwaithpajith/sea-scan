@@ -1,18 +1,18 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-09-25 10:57 UTC
+# Auto-updated by GitHub Actions on 2026-09-26 10:38 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Houthis Consolidate Gains and Pause Before the Next Push\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
-    "Suez Canal": (4.3, "\"Container Rates Edge Lower Ahead of Golden Week as Suez Traffic Returns\" — scan 25 Sep 2026 10:57 UTC: 1 critical + 0 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Bahrain Leads Countries’ Call for Full Reopening of Strait of Hormuz Without Tolls\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "Gulf of Oman Ship-to-ship Oil Transfers Reach Limit as Saudi Exports Surge: \"…Strait of Hormuz have reached their limits after Saudi Arabia diverted exports from the Red Sea, adding to shipments from other producers, trade sources and analysts said.\" — scan 26 Sep 2026 10:38 UTC: 2 critical + 0 elevated keyword matches."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (9.5, "\"Iran Says It Offered the US a New Proposal to Open the Strait of Hormuz\" — scan 26 Sep 2026 10:38 UTC: 2 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.2, "\"Taiwan Upgrades Maritime Patrol Capacity for Vulnerable South China Sea Outpost\" — scan 25 Sep 2026 10:57 UTC: 0 critical + 1 elevated keyword matches."),
+    "Luzon Strait": (4.2, "\"New Standoff Between China and Philippines Near Second Thomas Shoal\" — scan 26 Sep 2026 10:38 UTC: 0 critical + 1 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Report: CIA Warns of Russian Plans for Ship-Based Drone Strikes in the Med\" — scan 25 Sep 2026 10:57 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"Russian Military Cargo Ship Heads for Turkey from Tobruk\" — scan 26 Sep 2026 10:38 UTC: 1 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),

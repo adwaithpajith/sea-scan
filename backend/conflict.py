@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-01 12:14 UTC
+# Auto-updated by GitHub Actions on 2026-10-02 11:43 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
-    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (8.8, "\"Gulf Oil Exports Rebound to Prewar Levels, Despite Iranian Attacks\" — scan 01 Oct 2026 12:14 UTC: 1 critical + 2 elevated keyword matches."),
-    "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Bab el-Mandeb": (10.0, "Video: Explosion and Fire Reported at Saudi Oil Port of Yanbu: \"The main Saudi oil export terminal on the Red Sea, located at Yanbu, appears to have been hit by an unidentified projectile on Thursday.…\" — scan 02 Oct 2026 11:43 UTC: 4 critical + 0 elevated keyword matches."),
+    "Suez Canal": (4.3, "\"Premier Alliance Prepares for Asia-N Europe Services Return to Suez\" — scan 02 Oct 2026 11:43 UTC: 1 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Gulf Oil Exports Rebound to Prewar Levels, Despite Iranian Attacks\" — scan 02 Oct 2026 11:43 UTC: 3 critical + 0 elevated keyword matches."),
+    "Strait of Malacca": (3.8, "\"Indonesian Police Investigate Captain of Lost Ferry Virgo Transport 8\" — scan 02 Oct 2026 11:43 UTC: 1 critical + 0 elevated keyword matches."),
+    "Luzon Strait": (4.0, "\"Two Crewmembers Hospitalized from Tanker Fire in the Philippines\" — scan 02 Oct 2026 11:43 UTC: 0 critical + 0 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Salvors Recover Four Bodies From Burned-Out Russian Fishing Vessel\" — scan 01 Oct 2026 12:14 UTC: 2 critical + 1 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Vessel Backlog Builds in the Baltic Off Russian Ports\" — scan 02 Oct 2026 11:43 UTC: 3 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"Russia Sends Nuclear Warning to NATO as Tensions Rise in the Baltic\" — scan 01 Oct 2026 12:14 UTC: 2 critical + 2 elevated keyword matches."),
+    "Danish Straits": (4.5, "\"Vessel Backlog Builds in the Baltic Off Russian Ports\" — scan 02 Oct 2026 11:43 UTC: 2 critical + 1 elevated keyword matches."),
 }
 
 

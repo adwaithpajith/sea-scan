@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-05 13:18 UTC
+# Auto-updated by GitHub Actions on 2026-10-06 12:35 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Tanker Reports Attack South of Bab el-Mandeb\" — scan 05 Oct 2026 13:18 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Houthis Face Being Cut Off on Yemeni Coast\" — scan 06 Oct 2026 12:35 UTC: 2 critical + 1 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Iran Keeps Up Pace of Strikes With Attack on Brand New LR2 Tanker\" — scan 05 Oct 2026 13:18 UTC: 2 critical + 1 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"UKMTO: Tanker's Engine Room On Fire After Latest Hormuz Attack\" — scan 06 Oct 2026 12:35 UTC: 2 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Luzon Strait": (4.8, "\"Philippines Accuses PLA of Unsafe Close Encounter Over South China Sea\" — scan 06 Oct 2026 12:35 UTC: 1 critical + 0 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Russia Hits Liberian-Flagged Ship In Ukraine’s Odesa port, Kills One\" — scan 05 Oct 2026 13:18 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Japan Launches First Vessel Sanctions in Support of Ukraine\" — scan 06 Oct 2026 12:35 UTC: 2 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"Shadow Fleet Traffic on Northern Sea Route Surges as Arctic Safety Concerns Grow\" — scan 05 Oct 2026 13:18 UTC: 1 critical + 1 elevated keyword matches."),
+    "Danish Straits": (4.5, "\"Shadow Fleet Traffic on Northern Sea Route Surges as Arctic Safety Concerns Grow\" — scan 06 Oct 2026 12:35 UTC: 2 critical + 1 elevated keyword matches."),
 }
 
 

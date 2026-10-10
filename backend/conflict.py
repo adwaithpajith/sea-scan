@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-09 12:25 UTC
+# Auto-updated by GitHub Actions on 2026-10-10 11:44 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Yemeni War Intensifies with No Winner in Sight\" — scan 09 Oct 2026 12:25 UTC: 3 critical + 2 elevated keyword matches."),
+    "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Oil Prices and Tanker Rates Rise After Latest Iranian Attacks in Mideast\" — scan 09 Oct 2026 12:25 UTC: 2 critical + 2 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Second Ship Struck Inside Persian Gulf in Three Days\" — scan 10 Oct 2026 11:44 UTC: 3 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"US and UK Pile on Sanctions to Increase Pressure on Iran and Russia\" — scan 09 Oct 2026 12:25 UTC: 3 critical + 1 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "Trump Strikes Diesel Deal With Putin to Lower Fuel Prices Ahead of Midterms: \"President Donald Trump said Friday that Russia has agreed to release millions of tons of diesel fuel into U.S. and global markets…\" — scan 10 Oct 2026 11:44 UTC: 3 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"Calm Seas Favor Salvage Operations at \"Shadow Fleet\" Tanker Wreck off Oman\" — scan 09 Oct 2026 12:25 UTC: 1 critical + 2 elevated keyword matches."),
+    "Danish Straits": (3.0, "No specific advisory mentions for Danish Straits in current sources."),
 }
 
 

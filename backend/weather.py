@@ -110,7 +110,7 @@ def score_reading(w):
     s_vis=0 if vis>5000 else 3 if vis>2000 else 6 if vis>500 else 9
     return round(s_wave*0.35+s_sw*0.25+s_ww*0.15+s_ws*0.15+s_vis*0.10,1)
 
-def score_weather(readings):
+def score_weather(readings, sensitivity=1.0):
     if not readings:
         return {
             "weather_risk_score":0,"risk_label":"Unknown",
@@ -120,7 +120,7 @@ def score_weather(readings):
     scores, waves = [], []
     waypoints = []
     for w in readings:
-        sc = score_reading(w)
+        sc = min(10.0, round(score_reading(w) * sensitivity, 1))
         scores.append(sc)
         waves.append(w["wave_height"])
         waypoints.append({
@@ -146,7 +146,12 @@ def score_weather(readings):
         "waypoints": waypoints,
     }
 
-def get_weather_risk(geometry_coords, speed_knots=24):
+def get_weather_risk(geometry_coords, speed_knots=24, sensitivity=1.0):
+    """
+    speed_knots : vessel service speed, used for ETA-shifted forecasts
+    sensitivity : vessel-class sea-state sensitivity (>1 = more affected by
+                  waves, e.g. feeders; <1 = less, e.g. ultra-large ships)
+    """
     wpts     = compute_etas(geometry_coords, speed_knots)
     readings = [fetch_weather_at(lat, lon, eta) for lon, lat, eta in wpts]
-    return score_weather(readings)
+    return score_weather(readings, sensitivity)

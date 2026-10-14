@@ -390,6 +390,37 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .cond-badge{font-size:8px;font-weight:600;padding:1px 6px;border-radius:2px;color:#fff;letter-spacing:.5px}
 .wp-footer{padding:6px 12px;font-size:8px;color:var(--text-dim);background:#060606;border-top:1px solid #111;letter-spacing:.5px}
 
+/* Vessel selector */
+select.search-input{padding-left:12px;cursor:pointer}
+select.search-input option,select.search-input optgroup{background:#111;color:var(--text)}
+.vessel-note{font-size:9px;color:var(--text-dim);line-height:1.7;margin:0 0 12px;letter-spacing:.3px}
+.vessel-note .ok,.vessel-banner .ok{color:var(--green)}
+.vessel-note .no,.vessel-banner .no{color:#cc6666}
+.vessel-banner{background:var(--bg2);border:1px solid var(--border);border-left:2px solid var(--accent-dim);border-radius:4px;padding:9px 11px;margin-bottom:10px;font-size:10px;line-height:1.6}
+.vessel-banner small{display:block;color:var(--text-dim);font-size:9px;margin-top:3px;letter-spacing:.2px}
+
+/* CII */
+.cii-row{display:flex;align-items:center;gap:10px;margin:9px 0 2px;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:3px}
+.cii-badge{width:30px;height:30px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff;flex-shrink:0}
+.cii-title{font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.cii-title b{color:var(--accent-bright);font-weight:400;letter-spacing:.3px;text-transform:none;margin-left:4px;font-size:10px}
+.cii-sub{font-size:9px;color:var(--text-dim);margin-top:2px;letter-spacing:.2px;line-height:1.5}
+
+/* Risk trend */
+.trend-box{margin-bottom:16px;padding:10px;background:var(--bg2);border:1px solid var(--border);border-radius:4px}
+.trend-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.trend-title{font-size:10px;color:var(--accent-bright);letter-spacing:.5px}
+.range-btns{display:flex;gap:3px}
+.range-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);font-size:8px;padding:2px 6px;border-radius:2px;cursor:pointer;letter-spacing:.5px}
+.range-btn.active{color:var(--accent-bright);border-color:var(--accent-dim)}
+.trend-stats{font-size:9px;color:var(--text-dim);margin-top:6px;line-height:1.6}
+.trend-empty{font-size:9px;color:var(--text-dim);line-height:1.6;padding:14px 4px;text-align:center}
+.cp-item.clickable{cursor:pointer}
+.cp-item.selected .cp-name{color:var(--accent-bright)}
+.route-trend{margin-top:9px}
+.rt-title{font-size:9px;color:var(--text-dim);display:flex;justify-content:space-between;gap:6px;margin-bottom:3px;letter-spacing:.3px}
+.rt-note{font-size:8px;color:var(--text-dim);margin-top:3px;line-height:1.5}
+
 /* Leaflet overrides */
 .leaflet-popup-content-wrapper{background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important}
 .leaflet-popup-content{margin:0!important}
@@ -454,6 +485,11 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
         <input id="dst-input" class="search-input" placeholder="Search 3,804 ports..." autocomplete="off"/>
         <div id="dst-ac" class="autocomplete"></div>
       </div>
+      <div class="field-label"><i class="fa-solid fa-ship"></i>Vessel Class</div>
+      <div class="search-wrap" style="margin-bottom:6px">
+        <select id="vessel-select" class="search-input"></select>
+      </div>
+      <div class="vessel-note" id="vessel-note"></div>
       <button id="find-btn" onclick="findRoutes()">
         <div class="btn-spinner" id="btn-spinner"></div>
         <i class="fa-solid fa-route" id="btn-icon"></i>
@@ -463,7 +499,21 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 
     <div id="results-section">
       <div id="default-view">
-        <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i>Chokepoint Intelligence</div>
+        <div class="section-title"><i class="fa-solid fa-chart-line"></i>Chokepoint Risk Trend</div>
+        <div class="trend-box">
+          <div class="trend-head">
+            <span class="trend-title" id="trend-title">&mdash;</span>
+            <div class="range-btns" id="range-btns">
+              <button class="range-btn" data-days="7">7D</button>
+              <button class="range-btn active" data-days="30">30D</button>
+              <button class="range-btn" data-days="90">90D</button>
+              <button class="range-btn" data-days="0">ALL</button>
+            </div>
+          </div>
+          <div id="trend-chart"></div>
+          <div class="trend-stats" id="trend-stats"></div>
+        </div>
+        <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i>Chokepoint Intelligence &nbsp;<span style="text-transform:none;letter-spacing:.3px">(click to chart)</span></div>
         <div id="cp-list"></div>
       </div>
       <div id="routes-view" style="display:none">
@@ -553,6 +603,120 @@ function condColor(s){
   return"#cc3333";
 }
 
+// ---------- Shared helpers ----------
+let historyData=null,trendCp=null,trendRange=30,vesselList=[];
+
+function fmtDate(d){return new Date(d+"T00:00:00Z").toLocaleDateString("en-GB",{day:"2-digit",month:"short",timeZone:"UTC"});}
+function scoreColor(s){return s>=8?"#e74c3c":s>=6?"#e67e22":s>=4?"#f39c12":"#2ecc71";}
+
+// Inline-SVG line chart for a 0-10 risk score over time.
+// points: [{date:"YYYY-MM-DD", score:number}]; opts.compact drops axes/labels.
+function trendSVG(points,opts){
+  opts=opts||{};
+  const W=300,H=opts.h||120,compact=!!opts.compact;
+  const pl=compact?6:24,pr=8,pt=8,pb=compact?6:18;
+  const iw=W-pl-pr,ih=H-pt-pb;
+  const ts=points.map(p=>Date.parse(p.date+"T00:00:00Z"));
+  const t0=Math.min(...ts),t1=Math.max(...ts);
+  const x=i=>pl+(t1===t0?iw/2:(ts[i]-t0)/(t1-t0)*iw);
+  const y=v=>pt+ih-(Math.max(0,Math.min(10,v))/10)*ih;
+  let g="";
+  [[0,4,"#2ecc71"],[4,6,"#f39c12"],[6,8,"#e67e22"],[8,10,"#e74c3c"]].forEach(([a,b,c])=>{
+    g+=`<rect x="${pl}" y="${y(b)}" width="${iw}" height="${y(a)-y(b)}" fill="${c}" fill-opacity="0.06"/>`;
+  });
+  if(!compact){
+    [0,2,4,6,8,10].forEach(v=>{
+      g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#2a2a2a" stroke-width="0.5"/>`+
+         `<text x="${pl-4}" y="${y(v)+3}" text-anchor="end" font-size="8" fill="#6a6a6a">${v}</text>`;
+    });
+    g+=`<text x="${pl}" y="${H-4}" text-anchor="start" font-size="8" fill="#6a6a6a">${fmtDate(points[0].date)}</text>`;
+    if(points.length>1)g+=`<text x="${W-pr}" y="${H-4}" text-anchor="end" font-size="8" fill="#6a6a6a">${fmtDate(points[points.length-1].date)}</text>`;
+  }
+  if(points.length>1){
+    g+=`<polyline points="${points.map((p,i)=>x(i).toFixed(1)+","+y(p.score).toFixed(1)).join(" ")}" fill="none" stroke="#c0c0c0" stroke-width="1.5" stroke-linejoin="round"/>`;
+  }
+  points.forEach((p,i)=>{
+    const last=i===points.length-1;
+    if(points.length<=45||last){
+      g+=`<circle cx="${x(i).toFixed(1)}" cy="${y(p.score).toFixed(1)}" r="${last?3.5:2}" fill="${last?scoreColor(p.score):"#c0c0c0"}"><title>${fmtDate(p.date)}: ${p.score}/10</title></circle>`;
+    }
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${g}</svg>`;
+}
+
+function accessChips(v){
+  return Object.values(v.access).map(a=>`<span class="${a.ok?"ok":"no"}">${a.ok?"&#10003;":"&#10007;"} ${a.name}</span>`).join(" &nbsp;·&nbsp; ");
+}
+
+// ---------- Chokepoint trend panel ----------
+function renderTrend(){
+  const chart=document.getElementById("trend-chart");
+  const stats=document.getElementById("trend-stats");
+  document.getElementById("trend-title").textContent=trendCp||"—";
+  document.querySelectorAll(".range-btn").forEach(b=>b.classList.toggle("active",+b.dataset.days===trendRange));
+  if(!historyData||!historyData.snapshots||!trendCp){
+    chart.innerHTML=`<div class="trend-empty">No risk history recorded yet. Run the <b>Daily Conflict Risk Update</b> workflow once to start the archive.</div>`;
+    stats.textContent="";return;
+  }
+  const ser=historyData.series[trendCp]||[];
+  let pts=[];
+  historyData.dates.forEach((d,i)=>{if(ser[i]!=null)pts.push({date:d,score:ser[i]});});
+  if(trendRange>0){
+    const cutoff=new Date(Date.now()-trendRange*864e5).toISOString().slice(0,10);
+    pts=pts.filter(p=>p.date>=cutoff);
+  }
+  if(!pts.length){
+    chart.innerHTML=`<div class="trend-empty">No snapshots in this range.</div>`;
+    stats.textContent="";return;
+  }
+  chart.innerHTML=trendSVG(pts,{h:120});
+  const last=pts[pts.length-1].score;
+  if(pts.length<2){
+    stats.innerHTML=`Latest <b style="color:${scoreColor(last)}">${last}/10</b> · only 1 daily snapshot so far — a trend line appears after the next daily update.`;
+    return;
+  }
+  const first=pts[0].score,delta=Math.round((last-first)*10)/10;
+  const all=pts.map(p=>p.score);
+  stats.innerHTML=`Latest <b style="color:${scoreColor(last)}">${last}/10</b> · change <b>${delta>0?"+":""}${delta}</b> over ${pts.length} snapshots · low ${Math.min(...all)} · high ${Math.max(...all)}`;
+}
+
+function selectTrendCp(name){
+  trendCp=name;
+  document.querySelectorAll("#cp-list .cp-item").forEach(el=>el.classList.toggle("selected",el.dataset.name===name));
+  renderTrend();
+}
+document.getElementById("range-btns").addEventListener("click",e=>{
+  const b=e.target.closest(".range-btn");if(!b)return;
+  trendRange=+b.dataset.days;renderTrend();
+});
+
+// ---------- Vessel selector ----------
+async function loadVessels(){
+  try{
+    vesselList=await fetch(`${API}/api/vessel-classes`).then(r=>r.json());
+  }catch(e){vesselList=[];}
+  const sel=document.getElementById("vessel-select");
+  if(!vesselList.length){sel.innerHTML=`<option value="default">Default container ship</option>`;return;}
+  const groups={};
+  vesselList.forEach(v=>{(groups[v.group]=groups[v.group]||[]).push(v);});
+  Object.entries(groups).forEach(([gname,list])=>{
+    const og=document.createElement("optgroup");og.label=gname;
+    list.forEach(v=>{
+      const o=document.createElement("option");o.value=v.id;o.textContent=v.label;og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  sel.value="default";
+  sel.addEventListener("change",updateVesselNote);
+  updateVesselNote();
+}
+function updateVesselNote(){
+  const v=vesselList.find(x=>x.id===document.getElementById("vessel-select").value);
+  const note=document.getElementById("vessel-note");
+  if(!v){note.textContent="";return;}
+  note.innerHTML=`${v.speed_kn} kn &nbsp;·&nbsp; ${v.payload.toLocaleString()} ${v.payload_unit==="TEU"?"TEU":"t cargo"} &nbsp;·&nbsp; draft ${v.draft_m} m<br>${accessChips(v)}`;
+}
+
 // Waypoint popup
 function buildWpPopup(route){
   const wps=route.weather.waypoints||[];
@@ -574,7 +738,7 @@ function buildWpPopup(route){
       <small>
         ${route.distance.toLocaleString()} NM &nbsp;·&nbsp;
         ${route.metrics.duration_days} days &nbsp;·&nbsp;
-        $${route.metrics.cost_per_teu_usd}/TEU &nbsp;·&nbsp;
+        $${route.metrics.cost_per_unit_usd}/${route.metrics.cost_unit} &nbsp;·&nbsp;
         ${route.metrics.co2_tonnes.toLocaleString()}t CO₂
       </small>
       <small>
@@ -629,11 +793,19 @@ async function init(){
 
   const cpList=document.getElementById("cp-list");
   cpData.sort((a,b)=>b.score-a.score).forEach(cp=>{
-    cpList.innerHTML+=`<div class="cp-item">
-      <span class="cp-name">${cp.name}</span>
-      <span class="cp-badge" style="background:${cp.color}">${cp.score}/10 ${cp.label}</span>
-    </div>`;
+    const row=document.createElement("div");
+    row.className="cp-item clickable";
+    row.dataset.name=cp.name;
+    row.innerHTML=`<span class="cp-name">${cp.name}</span>
+      <span class="cp-badge" style="background:${cp.color}">${cp.score}/10 ${cp.label}</span>`;
+    row.addEventListener("click",()=>selectTrendCp(cp.name));
+    cpList.appendChild(row);
   });
+
+  try{historyData=await fetch(`${API}/api/risk-history?days=0`).then(r=>r.json());}
+  catch(e){historyData=null;}
+  if(cpData.length)selectTrendCp(cpData[0].name);
+  await loadVessels();
 
   advanceLoader();
   setTimeout(()=>{
@@ -711,8 +883,15 @@ async function findRoutes(){
     const data=await fetch(`${API}/api/routes`,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({source:src,destination:dst})
-    }).then(r=>{if(!r.ok)throw new Error(r.statusText);return r.json();});
+      body:JSON.stringify({source:src,destination:dst,
+        vessel_class:document.getElementById("vessel-select").value||"default"})
+    }).then(async r=>{
+      if(!r.ok){
+        const j=await r.json().catch(()=>({}));
+        throw new Error(j.detail||r.statusText);
+      }
+      return r.json();
+    });
 
     clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);
     setOverlayStep(4,100);
@@ -741,6 +920,17 @@ function renderRoutes(data){
   const cards=document.getElementById("route-cards");
   const title=document.getElementById("routes-title");
   cards.innerHTML="";
+  const vsl=data.vessel;
+  if(vsl){
+    const blocked=Object.values(vsl.access).filter(a=>!a.ok);
+    const banner=document.createElement("div");
+    banner.className="vessel-banner";
+    banner.innerHTML=`<b style="color:var(--accent-bright)">${vsl.label}</b>
+      <small>${vsl.speed_kn} kn &nbsp;·&nbsp; ${accessChips(vsl)}</small>
+      ${blocked.length?`<small>Routing excludes: ${blocked.map(a=>`${a.name} (${a.reason})`).join("; ")}</small>`:""}
+      <small>CII ratings are indicative voyage estimates; the official rating is assessed annually per ship (MARPOL Annex VI, Reg. 28).</small>`;
+    cards.appendChild(banner);
+  }
   title.innerHTML=`<i class="fa-solid fa-route"></i>${data.source} → ${data.destination} &nbsp;(${routes.length} corridors)`;
   document.getElementById("default-view").style.display="none";
   document.getElementById("routes-view").style.display="block";
@@ -814,6 +1004,23 @@ function renderRoutes(data){
       r.lowest_risk   ?`<span class="extreme-tag risk-tag"><i class="fa-solid fa-shield-halved"></i>Lowest Risk</span>`:"",
       r.most_efficient?`<span class="extreme-tag eff-tag"><i class="fa-solid fa-leaf"></i>Most Efficient</span>`:"",
     ].join("");
+    const ci=r.cii;
+    const ciiHtml=ci?`<div class="cii-row" title="Indicative voyage-level CII. attained = fuel x 3.114 x 1e6 / (DWT x distance). Boundaries: A ≤ ${ci.boundaries.A}, B ≤ ${ci.boundaries.B}, C ≤ ${ci.boundaries.C}, D ≤ ${ci.boundaries.D}, E above.">
+        <div class="cii-badge" style="background:${ci.color}">${ci.rating}</div>
+        <div>
+          <div class="cii-title">IMO CII<b>${ci.rating_label} · ${ci.attained} gCO₂/dwt·nm</b></div>
+          <div class="cii-sub">Required ${ci.required} (${ci.reduction_year_applied}, −${ci.reduction_pct}%) · ratio ${ci.ratio}${ci.sea_margin_pct>0?` · incl. +${ci.sea_margin_pct}% weather margin`:""}</div>
+        </div>
+      </div>`:"";
+    let trendHtml="";
+    if(r.passages.length){
+      const tr=r.conflict_trend||[];
+      trendHtml=`<div class="route-trend">
+        <div class="rt-title"><span>Conflict risk trend · worst chokepoint on route</span><span>${tr.length>1?fmtDate(tr[0].date)+" – "+fmtDate(tr[tr.length-1].date):""}</span></div>
+        ${tr.length>1?trendSVG(tr,{compact:true,h:56}):`<div class="rt-note">${tr.length===1?"1 snapshot so far — the trend builds with each daily update.":"No history recorded yet."}</div>`}
+        <div class="rt-note">Conflict component only; weather is a live forecast and is not archived.</div>
+      </div>`;
+    }
     card.innerHTML=`
       <div class="card-header">
         <span class="card-name" style="color:${lc}">${r.name}</span>
@@ -823,7 +1030,7 @@ function renderRoutes(data){
       <div class="metrics-grid">
         <div class="metric"><div class="ml">Distance</div><div class="mv">${r.distance.toLocaleString()} NM</div></div>
         <div class="metric"><div class="ml">Duration</div><div class="mv">${r.metrics.duration_days}d</div></div>
-        <div class="metric"><div class="ml">Cost / TEU</div><div class="mv">$${r.metrics.cost_per_teu_usd}</div></div>
+        <div class="metric"><div class="ml">Cost / ${r.metrics.cost_unit}</div><div class="mv">$${r.metrics.cost_per_unit_usd.toLocaleString()}</div></div>
         <div class="metric"><div class="ml">CO₂</div><div class="mv">${r.metrics.co2_tonnes.toLocaleString()}t</div></div>
       </div>
       <div class="bar-row">
@@ -834,12 +1041,14 @@ function renderRoutes(data){
         <div class="bar-title">Efficiency Score <span>${r.efficiency_score}/10 · ${r.efficiency_label}</span></div>
         <div class="bar-bg"><div class="bar-fill" style="width:${r.efficiency_score*10}%;background:${ebc}"></div></div>
       </div>
+      ${ciiHtml}
       <div class="weather-row">
         <span>Weather ${r.weather.weather_risk_score}/10 ${r.weather.risk_label} · ${r.weather.avg_wave_height_m}m${r.weather.any_capped?" ~":""}</span>
         <span>Conflict ${r.conflict.conflict_risk_score}/10 ${r.conflict.risk_label}</span>
       </div>
       ${r.conflict.key_concern&&r.conflict.key_concern!=="No major chokepoints on this route"
         ?`<div class="concern">${r.conflict.key_concern.length>220?r.conflict.key_concern.substring(0,220)+"...":r.conflict.key_concern}</div>`:""}
+      ${trendHtml}
       <div class="passages">${r.passages.map(p=>`<span class="passage-tag">${p}</span>`).join("")}</div>
       <div class="hint-text"><i class="fa-regular fa-hand-pointer"></i>&nbsp;Click route line for ETA weather breakdown</div>`;
     card.addEventListener("click",()=>selectCard(i));

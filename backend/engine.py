@@ -37,7 +37,13 @@ def detect_passages(coords, threshold_km=150):
                 break
     return passages
 
-def get_routes(src_coords, dst_coords):
+def get_routes(src_coords, dst_coords, vessel_restrictions=None, speed_knots=24):
+    """
+    vessel_restrictions: extra searoute restriction keys (e.g. ["panama", "suez"])
+    for passages the selected vessel class cannot transit. They are merged into
+    every corridor's own restriction set, so all alternatives respect them.
+    """
+    vessel_restrictions = list(vessel_restrictions or [])
     corridors = [
         ("Optimal Route",           ["northwest"]),
         ("Cape of Good Hope Route", ["northwest", "suez", "panama"]),
@@ -48,10 +54,11 @@ def get_routes(src_coords, dst_coords):
     routes = []
     seen   = set()
     for name, restrictions in corridors:
+        merged = list(dict.fromkeys(restrictions + vessel_restrictions))
         try:
             r = sr.searoute(src_coords, dst_coords,
                             units="naut", return_passages=True,
-                            restrictions=restrictions)
+                            restrictions=merged)
             dist = round(r["properties"]["length"])
             if dist in seen:
                 continue
@@ -60,7 +67,7 @@ def get_routes(src_coords, dst_coords):
             routes.append({
                 "name"    : name,
                 "distance": dist,
-                "duration": round(r["properties"]["duration_hours"]),
+                "duration": round(dist / speed_knots),
                 "geometry": geo,
                 "passages": detect_passages(geo),
             })

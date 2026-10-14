@@ -1,13 +1,27 @@
-def compute_voyage_metrics(distance_nm):
-    days         = distance_nm / (24*24)
-    fuel_tonnes  = 180 * days
+from .vessels import get_vessel, DEFAULT_VESSEL_ID
+from .cii import compute_cii, sea_margin, CO2_FACTOR_HFO
+
+FUEL_PRICE_USD_PER_T = 650
+
+def voyage_fuel_tonnes(distance_nm, vessel):
+    days = distance_nm / (vessel["speed_kn"] * 24)
+    return vessel["fuel_tpd"] * days
+
+def compute_voyage_metrics(distance_nm, vessel=None):
+    vessel      = vessel or get_vessel(DEFAULT_VESSEL_ID)
+    days        = distance_nm / (vessel["speed_kn"] * 24)
+    fuel_tonnes = voyage_fuel_tonnes(distance_nm, vessel)
+    fuel_cost   = fuel_tonnes * FUEL_PRICE_USD_PER_T
+    unit        = vessel["payload_unit"]
+    per_unit    = fuel_cost / vessel["payload"]
     return {
-        "distance_nm"     : distance_nm,
-        "duration_days"   : round(days, 1),
-        "fuel_tonnes"     : round(fuel_tonnes),
-        "co2_tonnes"      : round(fuel_tonnes * 3.114),
-        "fuel_cost_usd"   : round(fuel_tonnes * 650),
-        "cost_per_teu_usd": round((fuel_tonnes * 650) / 10000),
+        "distance_nm"      : distance_nm,
+        "duration_days"    : round(days, 1),
+        "fuel_tonnes"      : round(fuel_tonnes),
+        "co2_tonnes"       : round(fuel_tonnes * CO2_FACTOR_HFO),
+        "fuel_cost_usd"    : round(fuel_cost),
+        "cost_per_unit_usd": round(per_unit) if unit == "TEU" else round(per_unit, 2),
+        "cost_unit"        : unit,
     }
 
 def compute_risk_score(weather_score, conflict_score):
@@ -24,16 +38,16 @@ def compute_risk_score(weather_score, conflict_score):
 
 def compute_efficiency_scores(routes):
     if not routes: return []
-    dists = [r["metrics"]["distance_nm"]     for r in routes]
-    co2s  = [r["metrics"]["co2_tonnes"]      for r in routes]
-    costs = [r["metrics"]["cost_per_teu_usd"] for r in routes]
+    dists = [r["metrics"]["distance_nm"]       for r in routes]
+    co2s  = [r["metrics"]["co2_tonnes"]        for r in routes]
+    costs = [r["metrics"]["cost_per_unit_usd"] for r in routes]
     def norm(v, vals):
         mn,mx = min(vals),max(vals)
         return 0.0 if mx==mn else round((v-mn)/(mx-mn)*10, 1)
     for r in routes:
         e = round(norm(r["metrics"]["distance_nm"],dists)*0.5 +
                   norm(r["metrics"]["co2_tonnes"],co2s)*0.25 +
-                  norm(r["metrics"]["cost_per_teu_usd"],costs)*0.25, 1)
+                  norm(r["metrics"]["cost_per_unit_usd"],costs)*0.25, 1)
         r["efficiency_score"] = e
         r["efficiency_label"] = ("Highly Efficient" if e<2.5 else
                                  "Efficient"        if e<5.0 else
@@ -57,13 +71,20 @@ def tag_extremes(routes):
         r["most_efficient"] = (r["efficiency_score"] == min_eff)
     return routes
 
-def score_all_routes(routes, weather_results, conflict_results):
+def score_all_routes(routes, weather_results, conflict_results, vessel=None):
+    vessel = vessel or get_vessel(DEFAULT_VESSEL_ID)
     enriched = []
     for i, route in enumerate(routes):
-        m   = compute_voyage_metrics(route["distance"])
+        m   = compute_voyage_metrics(route["distance"], vessel)
         rs  = compute_risk_score(
                   weather_results[i]["weather_risk_score"],
                   conflict_results[i]["conflict_risk_score"])
+        # CII is informational: it is NOT folded into the Risk or Efficiency
+        # score, so the two independent MCDM objectives stay independent.
+        margin = sea_margin(weather_results[i].get("avg_wave_height_m", 0),
+                            vessel["wave_sensitivity"])
+        cii = compute_cii(vessel, voyage_fuel_tonnes(route["distance"], vessel),
+                          route["distance"], margin)
         enriched.append({
             **route,
             "metrics"          : m,
@@ -74,6 +95,7 @@ def score_all_routes(routes, weather_results, conflict_results):
             "risk_color"       : rs["risk_color"],
             "efficiency_score" : 0,
             "efficiency_label" : "",
+            "cii"              : cii,
         })
     enriched = compute_efficiency_scores(enriched)
     return tag_extremes(enriched)

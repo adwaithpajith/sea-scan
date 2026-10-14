@@ -14,6 +14,9 @@ from .weather import get_weather_risk
 from .conflict import get_conflict_risk, CHOKEPOINT_RISK
 from .clustering import build_cluster_model, CLUSTER_INFO
 from .metrics import score_all_routes
+from .vessels import (VESSEL_CLASSES, DEFAULT_VESSEL_ID, get_vessel,
+                      describe_vessel, routing_restrictions)
+from .history import get_history, route_conflict_trend
 
 app = FastAPI(title="SeaRoute Intelligence API", version="2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
@@ -33,8 +36,11 @@ df_ports = build_cluster_model(df_raw)
 print(f"Ready — {len(df_ports)} ports loaded.")
 
 class RouteRequest(BaseModel):
-    source     : str
-    destination: str
+    source      : str
+    destination : str
+    vessel_class: str = DEFAULT_VESSEL_ID
+
+TREND_DAYS = 90
 
 # ---------------------------------------------------------------
 # Internal MARAD relay
@@ -135,6 +141,15 @@ def get_chokepoints():
         })
     return result
 
+@app.get("/api/vessel-classes")
+def vessel_classes():
+    return [describe_vessel(v) for v in VESSEL_CLASSES]
+
+@app.get("/api/risk-history")
+def risk_history(days: int = 90):
+    """Daily chokepoint risk snapshots (days=0 returns everything stored)."""
+    return get_history(days if days > 0 else None)
+
 @app.post("/api/routes")
 def compute_routes(req: RouteRequest):
     src_m = df_ports[df_ports["Main Port Name"]==req.source]
@@ -148,12 +163,27 @@ def compute_routes(req: RouteRequest):
     src_coords = [float(src["Longitude"]), float(src["Latitude"])]
     dst_coords = [float(dst["Longitude"]), float(dst["Latitude"])]
 
-    routes   = get_routes(src_coords, dst_coords)
-    weather  = [get_weather_risk(r["geometry"])  for r in routes]
-    conflict = [get_conflict_risk(r["passages"]) for r in routes]
-    scored   = score_all_routes(routes, weather, conflict)
+    try:
+        vessel = get_vessel(req.vessel_class)
+    except KeyError:
+        raise HTTPException(400, f"Unknown vessel class: {req.vessel_class}")
 
-    return {"source":req.source,"destination":req.destination,"routes":scored}
+    routes = get_routes(src_coords, dst_coords,
+                        vessel_restrictions=routing_restrictions(vessel),
+                        speed_knots=vessel["speed_kn"])
+    if not routes:
+        raise HTTPException(422, f"No navigable corridor found for {vessel['label']} "
+                                 f"between these ports (canal/strait limits applied).")
+
+    weather  = [get_weather_risk(r["geometry"], vessel["speed_kn"], vessel["wave_sensitivity"])
+                for r in routes]
+    conflict = [get_conflict_risk(r["passages"]) for r in routes]
+    scored   = score_all_routes(routes, weather, conflict, vessel)
+    for r in scored:
+        r["conflict_trend"] = route_conflict_trend(r["passages"], TREND_DAYS)
+
+    return {"source":req.source,"destination":req.destination,
+            "vessel":describe_vessel(vessel),"routes":scored}
 
 # Serve frontend
 FRONTEND = os.path.join(BASE_DIR, "..", "frontend")

@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-10-17T09:59:52.419569",
+  "last_updated": "2026-10-18T10:12:59.662560",
   "sources_used": [
     "MARAD",
     "Maritime Executive",
     "gCaptain",
     "UKMTO"
   ],
-  "text_chars": 8454,
+  "text_chars": 8598,
   "changes_detected": 4,
   "changes": [
     "Bab el-Mandeb: 7.5 -> 9.0",

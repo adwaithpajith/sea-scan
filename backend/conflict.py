@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-17 09:59 UTC
+# Auto-updated by GitHub Actions on 2026-10-18 10:12 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Maritime Piracy in 2026 Fell to 1992 Levels Despite Somalia-Yemen Surge\" — scan 17 Oct 2026 09:59 UTC: 2 critical + 0 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Maritime Piracy in 2026 Fell to 1992 Levels Despite Somalia-Yemen Surge\" — scan 18 Oct 2026 10:12 UTC: 2 critical + 0 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Fog of War Deepens in Hormuz as UKMTO Says Most Ship Attacks Go Unreported\" — scan 17 Oct 2026 09:59 UTC: 3 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Iran’s Guards Say Two Tankers Hit Mines In Strait Of Hormuz\" — scan 18 Oct 2026 10:12 UTC: 3 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (6.3, "\"Ukraine is Trying to Auction Off Seized Bulker Stuck in Chornomorsk\" — scan 17 Oct 2026 09:59 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"Ukraine is Trying to Auction Off Seized Bulker Stuck in Chornomorsk\" — scan 18 Oct 2026 10:12 UTC: 1 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"Salvage Operation Has Cleared More Than Two-Thirds of MSC Baltic III\" — scan 17 Oct 2026 09:59 UTC: 1 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.8, "\"Salvage Operation Has Cleared More Than Two-Thirds of MSC Baltic III\" — scan 18 Oct 2026 10:12 UTC: 1 critical + 1 elevated keyword matches."),
 }
 
 

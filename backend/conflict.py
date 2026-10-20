@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-19 11:49 UTC
+# Auto-updated by GitHub Actions on 2026-10-20 10:48 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Qatar LNG Cargo Makes Rare Red Sea Journey to Get Gas to Europe\" — scan 19 Oct 2026 11:49 UTC: 2 critical + 0 elevated keyword matches."),
-    "Suez Canal": (4.3, "\"Ukraine Talks with Turkey, India, Egypt Over Grain Corridor\" — scan 19 Oct 2026 11:49 UTC: 1 critical + 0 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"The Blockade on Iran Is Now Hitting Home\" — scan 19 Oct 2026 11:49 UTC: 3 critical + 0 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Qatar LNG Cargo Makes Rare Red Sea Journey to Get Gas to Europe\" — scan 20 Oct 2026 10:48 UTC: 2 critical + 0 elevated keyword matches."),
+    "Suez Canal": (4.3, "\"Ukraine Talks with Turkey, India, Egypt Over Grain Corridor\" — scan 20 Oct 2026 10:48 UTC: 1 critical + 0 elevated keyword matches."),
+    "Strait of Hormuz": (8.8, "\"Tug Attacked Near Strait of Hormuz\" — scan 20 Oct 2026 10:48 UTC: 1 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Luzon Strait": (4.0, "Toxic Fumes May Have Killed the Passengers of Burned-Out Ferry June Aster: \"The Philippines' Bureau of Fire Protection has completed an initial investigation into the deadly fire…\" — scan 20 Oct 2026 10:48 UTC: 0 critical + 0 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (6.3, "\"Is Russia Probing NATO Weakness in the Black Sea?\" — scan 19 Oct 2026 11:49 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"Ukraine to Prosecute Captain Who Transported Grain for War Crimes\" — scan 20 Oct 2026 10:48 UTC: 1 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"Baltic Block Of Russian Grain May Open Black Sea, Latvia Says\" — scan 19 Oct 2026 11:49 UTC: 3 critical + 0 elevated keyword matches."),
+    "Danish Straits": (4.5, "\"Wright: US Sanctions Relief for Shadow Fleet Will Involve S&P Deals\" — scan 20 Oct 2026 10:48 UTC: 3 critical + 1 elevated keyword matches."),
 }
 
 

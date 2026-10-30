@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-29 12:06 UTC
+# Auto-updated by GitHub Actions on 2026-10-30 11:58 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (10.0, "Strike Damage Confirmed at Giant Saudi Refinery Complex: \"Commercially-available satellite imaging reveals that the Houthi missile strike on the giant oil export hub of Ras Tanura hit a critical component of...\" — scan 29 Oct 2026 12:06 UTC: 5 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "Strike Damage Confirmed at Giant Saudi Refinery Complex: \"Commercially-available satellite imaging reveals that the Houthi missile strike on the giant oil export hub of Ras Tanura hit a critical component of...\" — scan 30 Oct 2026 11:58 UTC: 3 critical + 1 elevated keyword matches."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"As Midterms Approach, Signs of Impending Return to Open Conflict With Iran\" — scan 29 Oct 2026 12:06 UTC: 2 critical + 2 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Tanker Hit by Limpet Mine Attack in Strait of Hormuz\" — scan 30 Oct 2026 11:58 UTC: 2 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
+    "Luzon Strait": (4.0, "Taiwan Flags ‘Obvious’ Threat From 50 Chinese Vessels in Wide Sweep of Waters: \"…in a wide swath of sea stretching from southern Japan down to Taiwan and off the Philippines, a senior Taiwan official said, calling the threat level \"obvious.\"\" — scan 30 Oct 2026 11:58 UTC: 0 critical + 0 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"EU Throws Cold Water on Restart of Russia's Baltic Sea Gas Pipelines\" — scan 29 Oct 2026 12:06 UTC: 3 critical + 1 elevated keyword matches."),
-    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
+    "Bosphorus Strait": (7.0, "\"Pushback Against Russian Diesel Gains Traction With U.S. Energy Importers\" — scan 30 Oct 2026 11:58 UTC: 3 critical + 0 elevated keyword matches."),
+    "Panama Canal": (2.8, "\"Panama Canal Strengthens Long-Term Vision\" — scan 30 Oct 2026 11:58 UTC: 1 critical + 3 elevated keyword matches."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (4.5, "\"EU Throws Cold Water on Restart of Russia's Baltic Sea Gas Pipelines\" — scan 29 Oct 2026 12:06 UTC: 2 critical + 1 elevated keyword matches."),
+    "Danish Straits": (4.5, "\"EU Throws Cold Water on Restart of Russia's Baltic Sea Gas Pipelines\" — scan 30 Oct 2026 11:58 UTC: 2 critical + 0 elevated keyword matches."),
 }
 
 

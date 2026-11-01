@@ -1,5 +1,5 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-10-31 11:32 UTC
+# Auto-updated by GitHub Actions on 2026-11-01 12:30 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
@@ -7,19 +7,19 @@
 CHOKEPOINT_RISK = {
     "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"Oman Evacuates Tanker Crew as Iran Claims Spate of New Attacks\" — scan 31 Oct 2026 11:32 UTC: 2 critical + 3 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Oman Evacuates Tanker Crew as Iran Claims Spate of New Attacks\" — scan 01 Nov 2026 12:30 UTC: 2 critical + 3 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Large Russian Military Cargo Convoy Forming Up in the Baltic\" — scan 31 Oct 2026 11:32 UTC: 2 critical + 1 elevated keyword matches."),
-    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
+    "Bosphorus Strait": (6.3, "\"Large Russian Military Cargo Convoy Forming Up in the Baltic\" — scan 01 Nov 2026 12:30 UTC: 1 critical + 1 elevated keyword matches."),
+    "Panama Canal": (2.8, "\"Panama Canal Revises Transit Booking System and Updates NetZero Requirement\" — scan 01 Nov 2026 12:30 UTC: 1 critical + 1 elevated keyword matches."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"Large Russian Military Cargo Convoy Forming Up in the Baltic\" — scan 31 Oct 2026 11:32 UTC: 1 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.8, "\"Large Russian Military Cargo Convoy Forming Up in the Baltic\" — scan 01 Nov 2026 12:30 UTC: 1 critical + 1 elevated keyword matches."),
 }
 
 

@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-11-07T12:16:37.685472",
+  "last_updated": "2026-11-08T12:36:43.373551",
   "sources_used": [
     "MARAD",
     "Maritime Executive",
     "gCaptain",
     "UKMTO"
   ],
-  "text_chars": 8719,
+  "text_chars": 8677,
   "changes_detected": 4,
   "changes": [
     "Suez Canal: 3.5 -> 5.0",

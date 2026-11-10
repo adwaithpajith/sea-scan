@@ -1,18 +1,18 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-11-09 14:54 UTC
+# Auto-updated by GitHub Actions on 2026-11-10 14:07 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (9.0, "\"Evergreen Joins the Return to Red Sea Shipping\" — scan 09 Nov 2026 14:54 UTC: 2 critical + 1 elevated keyword matches."),
-    "Suez Canal": (5.0, "\"Egypt Deepens Gas Cuts To Fertilizer Makers As Energy Squeeze Tightens\" — scan 09 Nov 2026 14:54 UTC: 2 critical + 0 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Tanker Burns After Strike in Strait of Hormuz\" — scan 09 Nov 2026 14:54 UTC: 3 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (10.0, "IMO Warns of Mounting Human Toll as Attacks on Commercial Shipping Continue: \"…protections for merchant ships and their crews as continued attacks in the Middle East, Red Sea and Black Sea put seafarers...\" — scan 10 Nov 2026 14:07 UTC: 5 critical + 0 elevated keyword matches."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (9.5, "\"Iraq Has Reached Understandings With US To Allow Oil Exports Through Hormuz\" — scan 10 Nov 2026 14:07 UTC: 2 critical + 0 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (6.3, "\"Russia Takes Control of Two Chinese Heavy-Lift Ships Used for Arctic LNG 2 Deliveries\" — scan 09 Nov 2026 14:54 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"EU Puts Funding Into New Maritime Security Center for the Western Black Sea\" — scan 10 Nov 2026 14:07 UTC: 3 critical + 0 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),

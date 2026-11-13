@@ -1,5 +1,5 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-11-12 14:28 UTC
+# Auto-updated by GitHub Actions on 2026-11-13 13:46 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
@@ -7,19 +7,19 @@
 CHOKEPOINT_RISK = {
     "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
     "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
-    "Strait of Hormuz": (9.5, "\"IMO Calls for All Parties in Hormuz Crisis to Respect Seafarer Safety\" — scan 12 Nov 2026 14:28 UTC: 2 critical + 2 elevated keyword matches."),
+    "Strait of Hormuz": (9.5, "\"Three Tankers Attacked in Two Days in Strait of Hormuz Crisis\" — scan 13 Nov 2026 13:46 UTC: 2 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.5, "\"Philippines Gets New U.S.-Built USVs to Patrol South China Sea\" — scan 12 Nov 2026 14:28 UTC: 0 critical + 3 elevated keyword matches."),
+    "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Video: Ukrainian Strike Causes Major Fire at Russian Oil Port of Ust-Luga\" — scan 12 Nov 2026 14:28 UTC: 3 critical + 1 elevated keyword matches."),
-    "Panama Canal": (2.8, "\"Panama Canal Raises Daily Transit Capacity as Water Conditions Improve\" — scan 12 Nov 2026 14:28 UTC: 1 critical + 2 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Finland Says it Detects Strike on Russian Warship in Baltic Sea\" — scan 13 Nov 2026 13:46 UTC: 3 critical + 0 elevated keyword matches."),
+    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "Video: Ukrainian Strike Causes Major Fire at Russian Oil Port of Ust-Luga: \"Russian officials have confirmed a major drone strike on the Baltic oil port of Ust-Luga, west of St. Petersburg. It has been hit many times by Ukrain...\" — scan 12 Nov 2026 14:28 UTC: 1 critical + 1 elevated keyword matches."),
+    "Danish Straits": (3.8, "\"Finland Says it Detects Strike on Russian Warship in Baltic Sea\" — scan 13 Nov 2026 13:46 UTC: 1 critical + 0 elevated keyword matches."),
 }
 
 

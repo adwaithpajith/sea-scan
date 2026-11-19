@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-11-18 14:56 UTC
+# Auto-updated by GitHub Actions on 2026-11-19 15:02 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (10.0, "\"Security Guards Fire Warning Shot to Stop Boarding in Gulf of Aden\" — scan 18 Nov 2026 14:56 UTC: 4 critical + 1 elevated keyword matches."),
-    "Suez Canal": (4.3, "\"Egypt Thanks Crew for Saving Egyptian-Owned Ship and its Russian Cargo\" — scan 18 Nov 2026 14:56 UTC: 1 critical + 1 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Smaller Tankers Join Hormuz Shuttle Trade to Keep Oil Flowing\" — scan 18 Nov 2026 14:56 UTC: 3 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (7.5, "No specific advisory mentions for Bab el-Mandeb in current sources."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (9.5, "\"U.S. Naval Blockade Now Covers Vessels That Load Iranian Cargo at Sea\" — scan 19 Nov 2026 15:02 UTC: 2 critical + 3 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
     "Luzon Strait": (4.0, "No specific advisory mentions for Luzon Strait in current sources."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (8.0, "\"Egypt Thanks Crew for Saving Egyptian-Owned Ship and its Russian Cargo\" — scan 18 Nov 2026 14:56 UTC: 4 critical + 1 elevated keyword matches."),
-    "Panama Canal": (2.8, "Indian Coast Guard Saves a Bulker From Severe Flooding off Odisha: \"On Tuesday, first responders from the Indian Coast Guard saved a Panamax bulker from severe engine room flooding off the coast of Paradip, with assist...\" — scan 18 Nov 2026 14:56 UTC: 1 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (6.3, "\"Kerch Strait Bridge Strike Cuts Off Sea of Azov Shipping\" — scan 19 Nov 2026 15:02 UTC: 1 critical + 1 elevated keyword matches."),
+    "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"EU Targets Shadow Fleet Shipowners, Managers and Insurers in New Russia Sanctions\" — scan 18 Nov 2026 14:56 UTC: 1 critical + 2 elevated keyword matches."),
+    "Danish Straits": (3.8, "\"China Drops Criminal Charges Against Captain in Baltic Anchor Dragging Case\" — scan 19 Nov 2026 15:02 UTC: 1 critical + 1 elevated keyword matches."),
 }
 
 

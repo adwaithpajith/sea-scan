@@ -1,25 +1,25 @@
 # conflict.py
-# Auto-updated by GitHub Actions on 2026-11-24 16:50 UTC
+# Auto-updated by GitHub Actions on 2026-11-25 16:38 UTC
 # Sources: MARAD MSCI · Maritime Executive · gCaptain RSS · UKMTO
 # Schedule: Daily at 06:00 UTC
 # DO NOT EDIT MANUALLY
 
 CHOKEPOINT_RISK = {
-    "Bab el-Mandeb": (10.0, "\"Egypt Reports Bulker Fought Off Three Pirate Attacks Off the Coast of Yemen\" — scan 24 Nov 2026 16:50 UTC: 4 critical + 1 elevated keyword matches."),
-    "Suez Canal": (4.3, "\"Egypt Reports Bulker Fought Off Three Pirate Attacks Off the Coast of Yemen\" — scan 24 Nov 2026 16:50 UTC: 1 critical + 0 elevated keyword matches."),
-    "Strait of Hormuz": (9.5, "\"Used Supertankers Now Cost More Than New Ships as Hormuz War Upends Shipping Markets\" — scan 24 Nov 2026 16:50 UTC: 2 critical + 1 elevated keyword matches."),
+    "Bab el-Mandeb": (9.0, "\"Riyadh, Hodeidah and Ras Tanura Hit in Saudi-Houthi Exchange of Fire\" — scan 25 Nov 2026 16:38 UTC: 2 critical + 1 elevated keyword matches."),
+    "Suez Canal": (3.5, "No specific advisory mentions for Suez Canal in current sources."),
+    "Strait of Hormuz": (9.5, "\"Caspian Shipping Routes into Iran Under Pressure\" — scan 25 Nov 2026 16:38 UTC: 2 critical + 1 elevated keyword matches."),
     "Strait of Malacca": (3.0, "No specific advisory mentions for Strait of Malacca in current sources."),
-    "Luzon Strait": (4.2, "\"Trump Administration Invests in Philippines' Defenses in S. China Sea\" — scan 24 Nov 2026 16:50 UTC: 0 critical + 1 elevated keyword matches."),
+    "Luzon Strait": (4.2, "Video: Philippine Patrol Vessel Maneuvers to Avoid Chinese Maritime Militia: \"Philippine officials are reporting a new encounter with the Chinese in the Spratly Islands, but unlike other recent incidents, they were able to maneu...\" — scan 25 Nov 2026 16:38 UTC: 0 critical + 1 elevated keyword matches."),
     "Strait of Gibraltar": (1.5, "Stable, NATO presence. No current advisories."),
     "Dover Strait": (1.0, "Stable, heavy naval patrol. No current advisories."),
-    "Bosphorus Strait": (7.0, "\"Russia's Kaliningrad Exclave Survives Through Shipping\" — scan 24 Nov 2026 16:50 UTC: 3 critical + 0 elevated keyword matches."),
+    "Bosphorus Strait": (7.0, "\"Ukraine Denies Interfering in Libyan Affairs After Benghazi Drone Strike\" — scan 25 Nov 2026 16:38 UTC: 2 critical + 1 elevated keyword matches."),
     "Panama Canal": (2.0, "No specific advisory mentions for Panama Canal in current sources."),
     "Cape of Good Hope": (1.0, "No conflict risk. Now primary Asia-Europe default route."),
     "Lombok Strait": (2.0, "Minor piracy risk; generally safe Malacca alternative."),
     "Tsugaru Strait": (1.5, "North Korea missile activity in region; Japan-controlled."),
     "Cape Horn": (1.0, "No conflict risk; extreme weather risk only."),
     "Strait of Magellan": (1.0, "Stable, Chile-controlled."),
-    "Danish Straits": (3.8, "\"Zelenskyy Confirms Ukraine Hit Russian Ship in Gulf of Finland\" — scan 24 Nov 2026 16:50 UTC: 1 critical + 0 elevated keyword matches."),
+    "Danish Straits": (3.0, "No specific advisory mentions for Danish Straits in current sources."),
 }
 
 
